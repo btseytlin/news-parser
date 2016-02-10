@@ -2,7 +2,9 @@ import sys
 import getopt 
 import os
 import json
-import urllib2
+#import urllib2
+from subprocess import Popen, PIPE, STDOUT, TimeoutExpired
+
 _debug = True
 sys.stderr = open(os.path.dirname(os.path.abspath(__file__))+'\\debug.txt', 'w',encoding="utf-8")
 def pdebug(*args):
@@ -27,25 +29,39 @@ class NewsMessage():
         return "%s;%s;%s;%s;%s"%(self.id, self.title, self.text, self.cluster, "["+",".join(self.grammemes)+"]")
 
 # not done
-def json_post_yandex_speller(text):
-    data = {
-        'text': text
-    }
-    req = urllib2.Request('http://speller.yandex.net/services/spellservice.json/checkText')
-    req.add_header('Content-Type', 'application/json')
-    response = urllib2.urlopen(req, json.dumps(data))
+# def json_post_yandex_speller(text):
+#     data = {
+#         'text': text
+#     }
+#     req = urllib2.Request('http://speller.yandex.net/services/spellservice.json/checkText')
+#     req.add_header('Content-Type', 'application/json')
+#     response = urllib2.urlopen(req, json.dumps(data))
 
-    response = json.loads(response)
-    return response
+#     response = json.loads(response)
+#     return response
 
 def process_spelling(text):
     return text
 
 def get_names(text):
-    return text 
+
+    #write text to stdin
+    pdebug("Sending to tomita:", text)
+    try:
+        p = Popen(['tomita/tomitaparser.exe', "tomita/config.proto"], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+        stdout_data, stderr_data = p.communicate(input=bytes(text, 'UTF-8'), timeout=45)
+        pdebug("Tomita returned:", "stdout: "+stdout_data.decode("utf-8"), "stderr: "+stderr_data.decode("utf-8") )
+    except TimeoutExpired:
+        p.kill()
+        pdebug("Tomita killed")
+    #launch tomita
+    #read tomita output from stdout
+    return stdout_data 
 
 def get_grammemes(text):
     names = get_names(text)
+    #pdebug(names.decode("utf-8"))
+    return []
     return text.split()
 
 def read_input(fname):

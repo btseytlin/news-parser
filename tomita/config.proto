@@ -1,0 +1,20 @@
+encoding "utf8";
+
+TTextMinerConfig {
+  Dictionary = "tomita/dict.gzt";
+  PrettyOutput = "pretty.html"
+
+  Articles = [
+    { Name = "имена" } // название статьи в корневом словаре,
+                                          // которая содержит запускаемую грамматику
+  ]
+  
+  Output = {
+  	Format = text
+  }
+
+  Facts = [
+	{ Name = "PersonName" }
+  ]
+
+}
