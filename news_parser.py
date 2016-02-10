@@ -41,7 +41,11 @@ def json_post_yandex_speller(text):
 def process_spelling(text):
     return text
 
+def get_names(text):
+    return text 
+
 def get_grammemes(text):
+    names = get_names(text)
     return text.split()
 
 def read_input(fname):
