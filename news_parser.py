@@ -40,6 +40,12 @@ class NewsMessage():
 #     response = json.loads(response)
 #     return response
 
+def clean_up(text):
+    pdebug("before strip", text)
+    text = text.strip("\"\t")
+    pdebug("after strip", text)
+    return process_spelling(text)
+
 def process_spelling(text):
     return text
 
@@ -71,7 +77,7 @@ def read_input(fname):
             pdebug("Parsing line\n", line,"\n")
             atrib = line.split(';')
             news_line = NewsMessage(atrib[0], atrib[1], atrib[2], atrib[3], [])
-            news_line.text = process_spelling(news_line.text)
+            news_line.text = clean_up(news_line.text)
             news_line.grammemes = get_grammemes(news_line.text)
             news_objects.append(news_line)
     return news_objects

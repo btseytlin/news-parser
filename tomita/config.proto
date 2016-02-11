@@ -14,7 +14,7 @@ TTextMinerConfig {
   }
 
   Facts = [
-	{ Name = "PersonName" }
+	{ Name = "EntityName" }
   ]
 
 }

@@ -2,7 +2,7 @@ import "base.proto";
 import "facttypes_base.proto"; 
 
 
-message PersonName: NFactType.TFact
+message EntityName: NFactType.TFact
 
 {
     required string Name = 1;
