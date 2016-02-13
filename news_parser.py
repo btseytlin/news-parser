@@ -99,11 +99,12 @@ class NewsMessage():
 #     return response
 
 def clean_up(text):
-
     text = text.strip("\"\t\n").strip().split('.')
     clear_text = []
     for t in text:
         t = t.strip("\"\t\n").strip()
+        first_word = t[:t.find(' ')]
+        t = t.replace(first_word, first_word.lower())
         clear_text.append(t)
 
     text = '.'.join(clear_text)
