@@ -10,7 +10,7 @@ APRO -> AnyWord<gram="APRO", kwset=~["имена", "названия"]> interp(A
 COM -> AnyWord<gram="COM", kwset=~["имена", "названия"]> interp(COM.Name);
 CONJ -> AnyWord<gram="CONJ", kwset=~["имена", "названия"]> interp(CONJ.Name);
 INTJ ->  AnyWord<gram="INTJ", kwset=~["имена", "названия"]> interp(INTJ.Name);
-NUM -> AnyWord<wff=/(\d+)/> {outgram = "NUM"}| AnyWord<gram="NUM", kwset=~["имена", "названия"]> interp(NUM.Name);
+NUM -> AnyWord<wff=/(\d+)/, kwset=~["имена", "названия"]> interp(NUM.Name) | AnyWord<gram="NUM", kwset=~["имена", "названия"]> interp(NUM.Name);
 PART -> AnyWord<gram="PART", kwset=~["имена", "названия"]> interp(PART.Name);
 PR -> AnyWord<gram="PR", kwset=~["имена", "названия"]> interp(PR.Name);
 SPRO ->  AnyWord<gram="SPRO", kwset=~["имена", "названия"]> interp(SPRO.Name);

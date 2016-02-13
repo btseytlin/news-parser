@@ -1,263 +1,231 @@
-===================== names.cxx =====================
-
-coverage: 2, weight: 0.33809523
-S  ->  PersonName[*Карен Григорян] :: 0.43333333
-    PersonName  ->  FullName[*Карен Григорян] :: 0.43333333
-        FullName  ->  FistName[*Карен]  SecondName[Григорян] :: 0.43333333
-        |   
-        |__ FistName  ->  Word[*Карен] :: 0.66666666
-        |       Word  ->  Карен :: 1
-        |   
-        |__ SecondName  ->  Word[*Григорян] :: 0.66666666
-                Word  ->  Григорян :: 1
-
-coverage: 2, weight: 0.33555555
-S  ->  PersonName[*Норайр Торосян] :: 0.43333333
-    PersonName  ->  FullName[*Норайр Торосян] :: 0.43333333
-        FullName  ->  FistName[*Норайр]  SecondName[Торосян] :: 0.43333333
-        |   
-        |__ FistName  ->  Word[*Норайр] :: 0.66666666
-        |       Word  ->  Норайр :: 1
-        |   
-        |__ SecondName  ->  Word[*Торосян] :: 0.66666666
-                Word  ->  Торосян :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.34
-S  ->  PersonName[*Карен] :: 0.66666666
-    PersonName  ->  FullName[*Карен] :: 0.66666666
-        FullName  ->  FistName[*Карен] :: 0.66666666
-            FistName  ->  Word[*Карен] :: 0.66666666
-                Word  ->  Карен :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33611111
-S  ->  PersonName[*Норайр] :: 0.66666666
-    PersonName  ->  FullName[*Норайр] :: 0.66666666
-        FullName  ->  FistName[*Норайр] :: 0.66666666
-            FistName  ->  Word[*Норайр] :: 0.66666666
-                Word  ->  Норайр :: 1
-
-
-
-===================== geo.cxx =====================
-
-coverage: 1, weight: 0.36666666
-S  ->  OtherNamed[*Микаелян] :: 0.66666666
-    OtherNamed  ->  {Word@@@@+}[*Микаелян] :: 0.66666666
-        {Word@@@@+}  ->  {Word@@@@}[*Микаелян] :: 0.66666666
-            {Word@@@@}  ->  Word[*Микаелян] :: 0.66666666
-                Word  ->  Микаелян :: 1
-
-
-
-===================== grammemes.cxx =====================
-
-coverage: 1, weight: 0.33555555
-ROOT  ->  NUM[*0] :: 0.66666666
-    NUM  ->  AnyWord[*0] :: 0.66666666
-        AnyWord  ->  0 :: 1
-
-
-
-==================== multiwords ====================
-
-Карен_Григорян: TAuxDicArticle, 
-	имена, 
-Микаелян: TAuxDicArticle, 
-	названия, 
-Норайр_Торосян: TAuxDicArticle, 
-	имена, 
-
-
-==================== multiwords ====================
-
-
-
-===================== names.cxx =====================
-
-coverage: 2, weight: 0.33809523
-S  ->  PersonName[*Мануэль Петросян] :: 0.43333333
-    PersonName  ->  FullName[*Мануэль Петросян] :: 0.43333333
-        FullName  ->  FistName[*Мануэль]  SecondName[Петросян] :: 0.43333333
-        |   
-        |__ FistName  ->  Word[*Мануэль] :: 0.66666666
-        |       Word  ->  Мануэль :: 1
-        |   
-        |__ SecondName  ->  Word[*Петросян] :: 0.66666666
-                Word  ->  Петросян :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.34
-S  ->  PersonName[*Мануэль] :: 0.66666666
-    PersonName  ->  FullName[*Мануэль] :: 0.66666666
-        FullName  ->  FistName[*Мануэль] :: 0.66666666
-            FistName  ->  Word[*Мануэль] :: 0.66666666
-                Word  ->  Мануэль :: 1
-
-
-
 ===================== geo.cxx =====================
 
 coverage: 2, weight: 0.37037037
-S  ->  OtherNamed[*Завен Андриасян] :: 0.55555555
-    OtherNamed  ->  {Word@@@@+}[*Завен Андриасян] :: 0.55555555
-        {Word@@@@+}  ->  {Word@@@@+}[*Завен]  {Word@@@@}[Андриасян] :: 0.55555555
+S  ->  OtherNamed[*Барселоны Неймар] :: 0.55555555
+    OtherNamed  ->  {Word@@@@+}[*Барселоны Неймар] :: 0.55555555
+        {Word@@@@+}  ->  {Word@@@@+}[*Барселоны]  {Word@@@@}[Неймар] :: 0.55555555
         |   
-        |__ {Word@@@@+}  ->  {Word@@@@}[*Завен] :: 0.66666666
-        |       {Word@@@@}  ->  Word[*Завен] :: 0.66666666
-        |           Word  ->  Завен :: 1
+        |__ {Word@@@@+}  ->  {Word@@@@}[*Барселоны] :: 0.66666666
+        |       {Word@@@@}  ->  Word[*Барселоны] :: 0.66666666
+        |           Word  ->  Барселоны :: 1
         |   
-        |__ {Word@@@@}  ->  Word[*Андриасян] :: 0.66666666
-                Word  ->  Андриасян :: 1
+        |__ {Word@@@@}  ->  Word[*Неймар] :: 0.66666666
+                Word  ->  Неймар :: 1
+
+coverage: 1, weight: 0.33461538
+S  ->  OtherNamed[*Примеры] :: 0.66666666
+    OtherNamed  ->  {Word@@@@+}[*Примеры] :: 0.66666666
+        {Word@@@@+}  ->  {Word@@@@}[*Примеры] :: 0.66666666
+            {Word@@@@}  ->  Word[*Примеры] :: 0.66666666
+                Word  ->  Примеры :: 1
+
+coverage: 1, weight: 0.33428571
+S  ->  OtherNamed[*Леванте] :: 0.66666666
+    OtherNamed  ->  {Word@@@@+}[*Леванте] :: 0.66666666
+        {Word@@@@+}  ->  {Word@@@@}[*Леванте] :: 0.66666666
+            {Word@@@@}  ->  Word[*Леванте] :: 0.66666666
+                Word  ->  Леванте :: 1
+
+coverage: 1, weight: 0.33366666
+S  ->  OtherNamed[*Неймар] :: 0.66666666
+    OtherNamed  ->  {Word@@@@+}[*Неймар] :: 0.66666666
+        {Word@@@@+}  ->  {Word@@@@}[*Неймар] :: 0.66666666
+            {Word@@@@}  ->  Word[*Неймар] :: 0.66666666
+                Word  ->  Неймар :: 1
 
 DROPPED OCCURRENCE, coverage: 1, weight: 0.36666666
-S  ->  OtherNamed[*Завен] :: 0.66666666
-    OtherNamed  ->  {Word@@@@+}[*Завен] :: 0.66666666
-        {Word@@@@+}  ->  {Word@@@@}[*Завен] :: 0.66666666
-            {Word@@@@}  ->  Word[*Завен] :: 0.66666666
-                Word  ->  Завен :: 1
+S  ->  OtherNamed[*Барселоны] :: 0.66666666
+    OtherNamed  ->  {Word@@@@+}[*Барселоны] :: 0.66666666
+        {Word@@@@+}  ->  {Word@@@@}[*Барселоны] :: 0.66666666
+            {Word@@@@}  ->  Word[*Барселоны] :: 0.66666666
+                Word  ->  Барселоны :: 1
 
 DROPPED OCCURRENCE, coverage: 1, weight: 0.35
-S  ->  OtherNamed[*Андриасян] :: 0.66666666
-    OtherNamed  ->  {Word@@@@+}[*Андриасян] :: 0.66666666
-        {Word@@@@+}  ->  {Word@@@@}[*Андриасян] :: 0.66666666
-            {Word@@@@}  ->  Word[*Андриасян] :: 0.66666666
-                Word  ->  Андриасян :: 1
+S  ->  OtherNamed[*Неймар] :: 0.66666666
+    OtherNamed  ->  {Word@@@@+}[*Неймар] :: 0.66666666
+        {Word@@@@+}  ->  {Word@@@@}[*Неймар] :: 0.66666666
+            {Word@@@@}  ->  Word[*Неймар] :: 0.66666666
+                Word  ->  Неймар :: 1
 
 
 
 ===================== grammemes.cxx =====================
 
 coverage: 1, weight: 0.43333333
-ROOT  ->  NUM[*5] :: 0.66666666
-    NUM  ->  AnyWord[*5] :: 0.66666666
-        AnyWord  ->  5 :: 1
+ROOT  ->  S[*нападающий] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*нападающий] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*нападающий] :: 0.66666666
+            AnyWord  ->  нападающий :: 1
+
+coverage: 1, weight: 0.35
+ROOT  ->  V[*поделился] :: 0.66666666
+    V  ->  {AnyWord%TERM}[*поделился] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*поделился] :: 0.66666666
+            AnyWord  ->  поделился :: 1
+
+coverage: 1, weight: 0.34333333
+ROOT  ->  S[*впечатлениями] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*впечатлениями] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*впечатлениями] :: 0.66666666
+            AnyWord  ->  впечатлениями :: 1
+
+coverage: 1, weight: 0.34
+ROOT  ->  PR[*от] :: 0.66666666
+    PR  ->  {AnyWord%TERM}[*от] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*от] :: 0.66666666
+            AnyWord  ->  от :: 1
 
 coverage: 1, weight: 0.33809523
-ROOT  ->  NUM[*0] :: 0.66666666
-    NUM  ->  AnyWord[*0] :: 0.66666666
-        AnyWord  ->  0 :: 1
+ROOT  ->  A[*домашнего] :: 0.66666666
+    A  ->  {AnyWord%TERM}[*домашнего] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*домашнего] :: 0.66666666
+            AnyWord  ->  домашнего :: 1
+
+coverage: 1, weight: 0.33690476
+ROOT  ->  S[*матча] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*матча] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*матча] :: 0.66666666
+            AnyWord  ->  матча :: 1
+
+coverage: 1, weight: 0.33611111
+ROOT  ->  ANUM[*23-го] :: 0.66666666
+    ANUM  ->  {AnyWord%TERM}[*23-го] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*23-го] :: 0.66666666
+            AnyWord  ->  23-го :: 1
+
+coverage: 1, weight: 0.33555555
+ROOT  ->  S[*тура] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*тура] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*тура] :: 0.66666666
+            AnyWord  ->  тура :: 1
+
+coverage: 1, weight: 0.33515151
+ROOT  ->  A[*испанской] :: 0.66666666
+    A  ->  {AnyWord%TERM}[*испанской] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*испанской] :: 0.66666666
+            AnyWord  ->  испанской :: 1
+
+coverage: 1, weight: 0.33461538
+ROOT  ->  PR[*с] :: 0.66666666
+    PR  ->  {AnyWord%TERM}[*с] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*с] :: 0.66666666
+            AnyWord  ->  с :: 1
+
+coverage: 1, weight: 0.33416666
+ROOT  ->  S[*встреча] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*встреча] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*встреча] :: 0.66666666
+            AnyWord  ->  встреча :: 1
+
+coverage: 1, weight: 0.33406862
+ROOT  ->  V[*завершилась] :: 0.66666666
+    V  ->  {AnyWord%TERM}[*завершилась] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*завершилась] :: 0.66666666
+            AnyWord  ->  завершилась :: 1
+
+coverage: 1, weight: 0.33398692
+ROOT  ->  S[*победой] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*победой] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*победой] :: 0.66666666
+            AnyWord  ->  победой :: 1
+
+coverage: 1, weight: 0.33391812
+ROOT  ->  A[*сине-гранатовых] :: 0.66666666
+    A  ->  {AnyWord%TERM}[*сине-гранатовых] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*сине-гранатовых] :: 0.66666666
+            AnyWord  ->  сине-гранатовых :: 1
+
+coverage: 1, weight: 0.33385964
+ROOT  ->  PR[*со] :: 0.66666666
+    PR  ->  {AnyWord%TERM}[*со] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*со] :: 0.66666666
+            AnyWord  ->  со :: 1
+
+coverage: 1, weight: 0.33380952
+ROOT  ->  S[*счётом] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*счётом] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*счётом] :: 0.66666666
+            AnyWord  ->  счётом :: 1
+
+coverage: 1, weight: 0.33366666
+ROOT  ->  V[*провёл] :: 0.66666666
+    V  ->  {AnyWord%TERM}[*провёл] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*провёл] :: 0.66666666
+            AnyWord  ->  провёл :: 1
+
+coverage: 1, weight: 0.33364102
+ROOT  ->  PR[*на] :: 0.66666666
+    PR  ->  {AnyWord%TERM}[*на] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*на] :: 0.66666666
+            AnyWord  ->  на :: 1
+
+coverage: 1, weight: 0.33361823
+ROOT  ->  S[*поле] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*поле] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*поле] :: 0.66666666
+            AnyWord  ->  поле :: 1
+
+DROPPED OCCURRENCE, coverage: 1, weight: 0.43333333
+ROOT  ->  V[*нападающий] :: 0.66666666
+    V  ->  {AnyWord%TERM}[*нападающий] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*нападающий] :: 0.66666666
+            AnyWord  ->  нападающий :: 1
+
+DROPPED OCCURRENCE, coverage: 1, weight: 0.33364102
+ROOT  ->  PART[*на] :: 0.66666666
+    PART  ->  {AnyWord%TERM}[*на] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*на] :: 0.66666666
+            AnyWord  ->  на :: 1
 
 
 
 ==================== multiwords ====================
 
-Завен_Андриасян: TAuxDicArticle, 
+"Барселоны"_Неймар: TAuxDicArticle, 
 	названия, 
-Мануэль_Петросян: TAuxDicArticle, 
-	имена, 
-
-
-==================== multiwords ====================
-
-
-
-===================== names.cxx =====================
-
-coverage: 2, weight: 0.35
-S  ->  PersonName[*Оганес Габузян] :: 0.43333333
-    PersonName  ->  FullName[*Оганес Габузян] :: 0.43333333
-        FullName  ->  FistName[*Оганес]  SecondName[Габузян] :: 0.43333333
-        |   
-        |__ FistName  ->  Word[*Оганес] :: 0.66666666
-        |       Word  ->  Оганес :: 1
-        |   
-        |__ SecondName  ->  Word[*Габузян] :: 0.66666666
-                Word  ->  Габузян :: 1
-
-coverage: 2, weight: 0.33809523
-S  ->  PersonName[*Арман Пашикян] :: 0.43333333
-    PersonName  ->  FullName[*Арман Пашикян] :: 0.43333333
-        FullName  ->  FistName[*Арман]  SecondName[Пашикян] :: 0.43333333
-        |   
-        |__ FistName  ->  Word[*Арман] :: 0.66666666
-        |       Word  ->  Арман :: 1
-        |   
-        |__ SecondName  ->  Word[*Пашикян] :: 0.66666666
-                Word  ->  Пашикян :: 1
-
-coverage: 2, weight: 0.33515151
-S  ->  PersonName[*Левон Бабуджян] :: 0.43333333
-    PersonName  ->  FullName[*Левон Бабуджян] :: 0.43333333
-        FullName  ->  FistName[*Левон]  SecondName[Бабуджян] :: 0.43333333
-        |   
-        |__ FistName  ->  Word[*Левон] :: 0.66666666
-        |       Word  ->  Левон :: 1
-        |   
-        |__ SecondName  ->  Word[*Бабуджян] :: 0.66666666
-                Word  ->  Бабуджян :: 1
-
-coverage: 3, weight: 0.33428571
-S  ->  PersonName[*Тигран Л. Петросян] :: 0.36666666
-    PersonName  ->  FullName[*Тигран Л. Петросян] :: 0.36666666
-        FullName  ->  FistName[*Тигран]  SecondName[Л.]  PatrName[Петросян] :: 0.36666666
-        |   
-        |__ FistName  ->  Word[*Тигран] :: 0.66666666
-        |       Word  ->  Тигран :: 1
-        |   
-        |__ SecondName  ->  Word[*Л.] :: 0.66666666
-        |       Word  ->  Л. :: 1
-        |   
-        |__ PatrName  ->  Word[*Петросян] :: 0.66666666
-                Word  ->  Петросян :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.36666666
-S  ->  PersonName[*Оганес] :: 0.66666666
-    PersonName  ->  FullName[*Оганес] :: 0.66666666
-        FullName  ->  FistName[*Оганес] :: 0.66666666
-            FistName  ->  Word[*Оганес] :: 0.66666666
-                Word  ->  Оганес :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.34
-S  ->  PersonName[*Арман] :: 0.66666666
-    PersonName  ->  FullName[*Арман] :: 0.66666666
-        FullName  ->  FistName[*Арман] :: 0.66666666
-            FistName  ->  Word[*Арман] :: 0.66666666
-                Word  ->  Арман :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33555555
-S  ->  PersonName[*Левон] :: 0.66666666
-    PersonName  ->  FullName[*Левон] :: 0.66666666
-        FullName  ->  FistName[*Левон] :: 0.66666666
-            FistName  ->  Word[*Левон] :: 0.66666666
-                Word  ->  Левон :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33461538
-S  ->  PersonName[*Тигран] :: 0.66666666
-    PersonName  ->  FullName[*Тигран] :: 0.66666666
-        FullName  ->  FistName[*Тигран] :: 0.66666666
-            FistName  ->  Word[*Тигран] :: 0.66666666
-                Word  ->  Тигран :: 1
-
-DROPPED OCCURRENCE, coverage: 2, weight: 0.33443223
-S  ->  PersonName[*Тигран Л.] :: 0.43333333
-    PersonName  ->  FullName[*Тигран Л.] :: 0.43333333
-        FullName  ->  FistName[*Тигран]  SecondName[Л.] :: 0.43333333
-        |   
-        |__ FistName  ->  Word[*Тигран] :: 0.66666666
-        |       Word  ->  Тигран :: 1
-        |   
-        |__ SecondName  ->  Word[*Л.] :: 0.66666666
-                Word  ->  Л. :: 1
-
-
-
-===================== grammemes.cxx =====================
-
-coverage: 1, weight: 0.43333333
-ROOT  ->  NUM[*5] :: 0.66666666
-    NUM  ->  AnyWord[*5] :: 0.66666666
-        AnyWord  ->  5 :: 1
-
-
-
-==================== multiwords ====================
-
-Арман_Пашикян: TAuxDicArticle, 
-	имена, 
-Левон_Бабуджян: TAuxDicArticle, 
-	имена, 
-Оганес_Габузян: TAuxDicArticle, 
-	имена, 
-Тигран_Л._Петросян: TAuxDicArticle, 
-	имена, 
+23-го: TAuxDicArticle, 
+	граммемы, 
+Леванте: TAuxDicArticle, 
+	названия, 
+Неймар: TAuxDicArticle, 
+	названия, 
+Примеры: TAuxDicArticle, 
+	названия, 
+впечатлениями: TAuxDicArticle, 
+	граммемы, 
+встреча: TAuxDicArticle, 
+	граммемы, 
+домашнего: TAuxDicArticle, 
+	граммемы, 
+завершилась: TAuxDicArticle, 
+	граммемы, 
+испанской: TAuxDicArticle, 
+	граммемы, 
+матча: TAuxDicArticle, 
+	граммемы, 
+на: TAuxDicArticle, 
+	граммемы, 
+нападающий: TAuxDicArticle, 
+	граммемы, 
+от: TAuxDicArticle, 
+	граммемы, 
+победой: TAuxDicArticle, 
+	граммемы, 
+поделился: TAuxDicArticle, 
+	граммемы, 
+поле: TAuxDicArticle, 
+	граммемы, 
+провёл: TAuxDicArticle, 
+	граммемы, 
+с: TAuxDicArticle, 
+	граммемы, 
+сине-гранатовых: TAuxDicArticle, 
+	граммемы, 
+со: TAuxDicArticle, 
+	граммемы, 
+счётом: TAuxDicArticle, 
+	граммемы, 
+тура: TAuxDicArticle, 
+	граммемы, 
 
 

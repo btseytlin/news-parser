@@ -137,10 +137,12 @@ def get_grammemes(text):
 
 def read_input(fname):
     news_objects = []
-    with open(fname, "r", encoding="utf-8") as f:
+    with open(fname, "r", encoding="utf-8-sig") as f:
         for line in f:
             pdebug("Parsing line\n", line,"\n")
+            pdebug(line)
             atrib = [x.strip("\"").strip() for x in line.split(';')]
+            pdebug(str(atrib))
             news_line = NewsMessage(atrib[0], atrib[1], atrib[2], atrib[3],atrib[4], atrib[5])
             news_line.text = clean_up(news_line.text)
             news_line.grammemes = get_grammemes(news_line.text)
