@@ -11,3 +11,13 @@ TAuxDicArticle "имена"
 {
     key = {  "tomita:names.cxx" type=CUSTOM }
 }
+
+TAuxDicArticle "названия"
+{
+    key = {  "tomita:geo.cxx" type=CUSTOM }
+}
+
+TAuxDicArticle "граммемы"
+{
+    key = {  "tomita:grammemes.cxx" type=CUSTOM }
+}

@@ -33,14 +33,48 @@ def parse_tomita_output(text):
         clearing_text = clearing_text.replace(fact_body, '')
     return facts
 
+def get_overlaps(facts1, facts2):
+    overlaps = {}
+    pdebug("Seeking overlaps between\n %s\n and\n %s:"%(str(facts1), str(facts2)))
+    for key in facts1.keys():
+        if key in facts2.keys():
+            overlaps[key] = len(frozenset(facts1[key]).intersection(facts2[key]))
+    pdebug("Overlaps:\n %s"%(str(overlaps)))
+    return overlaps
+
+class Comparison():
+    def __init__(self, message1, message2):
+        self.message1 = message1
+        self.message2 = message2
+
+        self.overlaps = {}
+
+    def __repr__(self):
+        table_fields = ["EntityName","A", "ADV", "ADVPRO", "ANUM", "APRO", "COM", "CONJ", "INTJ","NUM","PART","PR","SPRO","V", "S"]
+        line = "%s:%s;"%(self.message1.id,self.message2.id)
+        for field in table_fields:
+            if field in self.overlaps.keys():
+                line= line + str(self.overlaps[field]) + ";"
+            else:
+                line = line + str(0)+";"
+        line = line+"%d"%(self.message1.cluster == self.message2.cluster and not self.message1.cluster == -1 and not self.message2.cluster == -1)+";\n"
+        return line
 
 
 class NewsMessage():
-    def __init__(self, id, title, text, cluster, grammemes):
+    def __init__(self, id, title, text, cluster, date, source):
         self.id = id
         self.title = title
         self.text = text
-        self.grammemes = grammemes
+        self.date = date
+        self.source = source
+        self.grammemes = []
+        if cluster == "-":
+            cluster = -1
+        else:
+            cluster = int(cluster)
+       
+
         self.cluster = cluster
 
     def lineout(self):
@@ -65,51 +99,43 @@ class NewsMessage():
 #     return response
 
 def clean_up(text):
+
     text = text.strip("\"\t\n").strip().split('.')
-    pdebug(str(text))
     clear_text = []
     for t in text:
-        #pdebug("before strip", t)
         t = t.strip("\"\t\n").strip()
         clear_text.append(t)
-        #pdebug("after strip", t)
-        #pdebug(str(clear_text))
+
     text = '.'.join(clear_text)
-    pdebug("processed text", text)
     return process_spelling(text)
 
 def process_spelling(text):
     return text
 
-def get_names(text):
-
+def get_grammemes(text):
     #write text to stdin
     pdebug("Sending to tomita:", text)
     try:
         p = Popen(['tomita/tomitaparser.exe', "tomita/config.proto"], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         stdout_data, stderr_data = p.communicate(input=bytes(text, 'UTF-8'), timeout=45)
-        pdebug("Tomita returned:", "stdout: "+stdout_data.decode("utf-8"), "stderr: "+stderr_data.decode("utf-8") )
+        pdebug("Tomita returned stderr:", "stderr: "+stderr_data.decode("utf-8").strip()+"\n" )
     except TimeoutExpired:
         p.kill()
         pdebug("Tomita killed")
     stdout_data = stdout_data.decode("utf-8")
-    pdebug('Received facts:',str(parse_tomita_output(stdout_data)))
+    facts = parse_tomita_output(stdout_data)
+    pdebug('Received facts:',str(facts))
     #launch tomita
     #read tomita output from stdout
-    return stdout_data 
-
-def get_grammemes(text):
-    names = get_names(text)
-    pdebug('Names:',str(names))
-    return names
+    return facts 
 
 def read_input(fname):
     news_objects = []
     with open(fname, "r", encoding="utf-8") as f:
         for line in f:
             pdebug("Parsing line\n", line,"\n")
-            atrib = line.split(';')
-            news_line = NewsMessage(atrib[0], atrib[1], atrib[2], atrib[3], [])
+            atrib = [x.strip("\"").strip() for x in line.split(';')]
+            news_line = NewsMessage(atrib[0], atrib[1], atrib[2], atrib[3],atrib[4], atrib[5])
             news_line.text = clean_up(news_line.text)
             news_line.grammemes = get_grammemes(news_line.text)
             news_objects.append(news_line)
@@ -117,19 +143,21 @@ def read_input(fname):
 
 def compare(news):
     comparisons = []
+    pdebug("Amount of news, expected amount of comparisons",str(len(news)), str(len(news)*len(news)))
     for i in range(len(news)):
-        for j in range(i, len(news)):
-            comparison = []
+        for j in range(i+1, len(news)):
+            pdebug("Comparing news %d and %d"%(i, j))
+            comparison = Comparison(news[i], news[j])
+            comparison.overlaps = get_overlaps(news[i].grammemes, news[j].grammemes)
             comparisons.append(comparison)
-
     return comparisons
 
 def output(comparisons, fname):
-    return None
     with open(fname, 'w', encoding='utf-8') as f:
-        for comparison in comparisons:
-            pdebug(comparison.lineout())
-            f.write(comparison.lineout()+"\n")
+        f.write("N;ComparedIDs;Name;A;ADV;ADVPRO;ANUM;APRO;COM;CONJ;INTJ;NUM;PART;PR;SPRO;V;S;Duplicate;\n")#Table header
+        for i in range(len(comparisons)):
+            comparison = comparisons[i]
+            f.write("%d;"%(i) + str(comparison))
 
 def main(argv):
     input_fname = "input.csv"

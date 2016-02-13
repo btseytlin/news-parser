@@ -5,16 +5,37 @@ TTextMinerConfig {
   PrettyOutput = "pretty.html"
 
   Articles = [
-    { Name = "имена" } // название статьи в корневом словаре,
-                                          // которая содержит запускаемую грамматику
+    { Name = "имена" },
+    { Name = "названия" },
+    { Name = "граммемы" }
   ]
   
   Output = {
   	Format = text;
   }
 
+  PrintRules="rules.txt";
+  PrintTree="tree.txt";
+
   Facts = [
-	 { Name = "EntityName" }
+	 { Name = "EntityName" },
+
+   { Name = "S" },
+   { Name = "A" },
+   { Name = "ADV" },
+   { Name = "ADVPRO" },
+   { Name = "ANUM" },
+   { Name = "APRO" },
+   { Name = "COM" },
+   { Name = "CON" },
+   { Name = "CONJ" },
+   { Name = "INTJ" },
+   { Name = "NUM" },
+   { Name = "PART" },
+   { Name = "PR" },
+   { Name = "SPRO" },
+   { Name = "V" }
+
   ]
 
 }

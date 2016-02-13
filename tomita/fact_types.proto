@@ -7,3 +7,97 @@ message EntityName: NFactType.TFact
 {
     required string Name = 1;
 }
+
+message S: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+message A: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+message ADV: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+message ADVPRO: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+message APRO: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+
+message ANUM: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+message COM: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+message CONJ: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+message INTJ: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+message NUM: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+
+message PART: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+
+message PR: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+
+
+message SPRO: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+
+message V: NFactType.TFact
+
+{
+    required string Name = 1;
+}
+
+
+
+
