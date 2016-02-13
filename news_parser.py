@@ -2,6 +2,7 @@ import sys
 import getopt 
 import os
 import json
+import re
 #import urllib2
 from subprocess import Popen, PIPE, STDOUT, TimeoutExpired
 
@@ -10,6 +11,29 @@ sys.stderr = open(os.path.dirname(os.path.abspath(__file__))+'\\debug.txt', 'w',
 def pdebug(*args):
     if _debug:
         print(" ".join(args),file=sys.stderr)
+
+def parse_tomita_output(text):
+    facts = {}
+    clearing_text = str(text)
+    while clearing_text.find("{") != -1:
+        opening_brace = clearing_text.find("{")
+        if not opening_brace:
+            break
+
+        
+        closing_brace = clearing_text.find("}", opening_brace)
+        if not closing_brace:
+            break
+        fact_type=re.search('(\w+\s+)(?=\s+\{)', clearing_text[:closing_brace]).group(0).strip()
+        fact_body = clearing_text[opening_brace-1:closing_brace+1]
+        fact_text = fact_body[fact_body.find('=')+1:-1].strip()
+        if not fact_type in facts.keys():
+            facts[fact_type] = []
+        facts[fact_type].append(fact_text)
+        clearing_text = clearing_text.replace(fact_body, '')
+    return facts
+
+
 
 class NewsMessage():
     def __init__(self, id, title, text, cluster, grammemes):
@@ -41,9 +65,17 @@ class NewsMessage():
 #     return response
 
 def clean_up(text):
-    pdebug("before strip", text)
-    text = text.strip("\"\t")
-    pdebug("after strip", text)
+    text = text.strip("\"\t\n").strip().split('.')
+    pdebug(str(text))
+    clear_text = []
+    for t in text:
+        #pdebug("before strip", t)
+        t = t.strip("\"\t\n").strip()
+        clear_text.append(t)
+        #pdebug("after strip", t)
+        #pdebug(str(clear_text))
+    text = '.'.join(clear_text)
+    pdebug("processed text", text)
     return process_spelling(text)
 
 def process_spelling(text):
@@ -60,15 +92,16 @@ def get_names(text):
     except TimeoutExpired:
         p.kill()
         pdebug("Tomita killed")
+    stdout_data = stdout_data.decode("utf-8")
+    pdebug('Received facts:',str(parse_tomita_output(stdout_data)))
     #launch tomita
     #read tomita output from stdout
     return stdout_data 
 
 def get_grammemes(text):
     names = get_names(text)
-    #pdebug(names.decode("utf-8"))
-    return []
-    return text.split()
+    pdebug('Names:',str(names))
+    return names
 
 def read_input(fname):
     news_objects = []

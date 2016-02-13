@@ -6,5 +6,5 @@ PersonName -> Word<h-reg1, rt, gnc-agr[1], gram="famn">  AnyWord<h-reg1, gnc-agr
 Event -> Word<h-reg2> | Noun<h-reg2> | Noun<h-reg1, gnc-agr[1], rt> Word<h-reg1, gnc-agr[1]>*;
 GeographicalNamedAfter -> Event 'имени' PersonName | Event PersonName<gram="род">;
 OtherNamed -> GeographicalNamedAfter | Event | GenericName;
-S -> OtherNamed<wff=/(\d+[^\d\s\t]+)|([^\d\s\t]+\d+)|([^\d\s]+)/> | PersonName< wff=/(\d+[^\d\s\t]+)|([^\d\s\t]+\d+)|([^\d\s]+)/>;
+S -> OtherNamed<wff=/([^\d\s\t]+\d+[^\d\s\t]+)|(\d+[^\d\s\t]+)|([^\d\s\t]+\d+)|([^\d\s]+)/> interp (EntityName.Name) | PersonName< wff=/([^\d\s\t]+\d+[^\d\s\t]+)|(\d+[^\d\s\t]+)|([^\d\s\t]+\d+)|([^\d\s]+)/> interp (EntityName.Name);
 

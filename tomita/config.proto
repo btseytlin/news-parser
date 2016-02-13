@@ -10,11 +10,11 @@ TTextMinerConfig {
   ]
   
   Output = {
-  	Format = text
+  	Format = text;
   }
 
   Facts = [
-	{ Name = "EntityName" }
+	 { Name = "EntityName" }
   ]
 
 }
