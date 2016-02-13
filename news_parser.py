@@ -57,7 +57,7 @@ class Comparison():
                 line= line + str(self.overlaps[field]) + ";"
             else:
                 line = line + str(0)+";"
-        line = line+"%d"%(self.message1.cluster == self.message2.cluster and not self.message1.cluster == -1 and not self.message2.cluster == -1)+";\n"
+        line = line+"%d"%(self.message1.cluster == self.message2.cluster and not self.message1.cluster == "-" and not self.message2.cluster == "-")+";\n"
         return line
 
 
@@ -69,12 +69,6 @@ class NewsMessage():
         self.date = date
         self.source = source
         self.grammemes = []
-        if cluster == "-":
-            cluster = -1
-        else:
-            cluster = int(cluster)
-       
-
         self.cluster = cluster
 
     def lineout(self):
@@ -100,14 +94,25 @@ class NewsMessage():
 
 def clean_up(text):
     text = text.strip("\"\t\n").strip().split('.')
+    #pdebug(str(text))
     clear_text = []
+    prev_ended_with_1_letter = None
     for t in text:
+        if not t:
+            continue 
         t = t.strip("\"\t\n").strip()
-        first_word = t[:t.find(' ')]
-        t = t.replace(first_word, first_word.lower())
+        first_word = t[:t.find(' ')].strip()
+        #pdebug('rsplit',str(t.rsplit(None, 1)))
+        last_word = t.rsplit(None, 1)[-1].strip()
+        #pdebug('f',first_word,'l', last_word)
+        #if prev_ended_with_1_letter:
+            #pdebug('ended with 1 letter')
+        if first_word.upper() != first_word and not prev_ended_with_1_letter:
+            t = t.replace(first_word, first_word.lower())
+        prev_ended_with_1_letter = len(last_word) == 1
         clear_text.append(t)
 
-    text = '.'.join(clear_text)
+    text = '. '.join(clear_text)
     return process_spelling(text)
 
 def process_spelling(text):
@@ -144,7 +149,7 @@ def read_input(fname):
 
 def compare(news):
     comparisons = []
-    pdebug("Amount of news, expected amount of comparisons",str(len(news)), str(len(news)*len(news)))
+    pdebug("Amount of news",str(len(news)))
     for i in range(len(news)):
         for j in range(i+1, len(news)):
             pdebug("Comparing news %d and %d"%(i, j))

@@ -4,10 +4,10 @@
 Quoted -> Word<quoted>+[nc-agr]; 
 Abbr -> AnyWord<gram="abbr">;
 CamelCase -> AnyWord<h-reg2>;
-
+Event -> Noun<h-reg1, nc-agr[1], rt> Adj<l-reg, nc-agr[1]> Word<l-reg, gram="род" ,nc-agr[1]> ;
 GenericName -> Quoted | Abbr | CamelCase;
 
 Location ->  Noun<h-reg1, nc-agr[1], rt> Word<h-reg1, nc-agr[1]>+ | Noun<h-reg1, nc-agr[1]> Word<l-reg, nc-agr[1]>+;
-OtherNamed -> Location | GenericName | Word<h-reg1, kwset=~["имена"]>+[nc-agr];// | GeographicalNamedAfter |  Event;
+OtherNamed -> Location | GenericName | Event | Word<h-reg1, kwset=~["имена"]>+[nc-agr];// | GeographicalNamedAfter |  Event;
 S -> OtherNamed<kwset=~["имена"], wff=/([^\d\s\t]+\d+[^\d\s\t]+)|(\d+[^\d\s\t]+)|([^\d\s\t]+\d+)|([^\d\s]+)/> interp (EntityName.Name);
 

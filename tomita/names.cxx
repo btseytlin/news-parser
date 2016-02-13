@@ -8,8 +8,9 @@ GenericName -> Word<quoted>+[gnc-agr] | Word<gram="abbr">;
 //PersonFullName -> Word<h-reg1, gnc-agr[1], rt> Word<h-reg1, gnc-agr[1]> Word<h-reg1, gnc-agr[1]>;
 
 FistName -> Word<h-reg1, gram="имя">;
-SecondName -> Word<h-reg1>;
-FullName -> FistName<rt,gnc-agr[1]> (SecondName<gnc-agr[1]>);
+SecondName -> Word<h-reg1> (Punct<wff=/\./>);
+PatrName -> Word<h-reg1> (Punct<wff=/\./>);
+FullName -> FistName<rt,gnc-agr[1]> (SecondName<gnc-agr[1]>) (PatrName<gnc-agr[1]>);
 
 PersonName -> FullName;
 //PersonName -> Word<h-reg1, gnc—agr[1], rt> Word<h-reg1, gnc—agr[1]>;
