@@ -6,7 +6,13 @@ import "articles_base.proto";  // Файлы base.proto и articles_base.proto �
 
 import "fact_types.proto";
 
-// статья с нашей грамматикой:
+
+
+TAuxDicArticle "стоп_слова"
+{
+    key = {  "tomita:stopwords.cxx" type=CUSTOM }
+}
+
 TAuxDicArticle "имена"
 {
     key = {  "tomita:names.cxx" type=CUSTOM }
@@ -20,4 +26,14 @@ TAuxDicArticle "названия"
 TAuxDicArticle "граммемы"
 {
     key = {  "tomita:grammemes.cxx" type=CUSTOM }
+}
+
+TAuxDicArticle "маркеры_локаций"
+{
+    key = "область" | "регион" | "округ" | "федеральный округ"; 
+}
+
+TAuxDicArticle "названия_стран"
+{
+	key = "США" | "Россия" | "Украина" | "Беларусь" | "Казахстан" | "Белоруссия" | "РФ" | "Российская Федерация"; 
 }

@@ -5,9 +5,14 @@ TTextMinerConfig {
   PrettyOutput = "pretty.html"
 
   Articles = [
+  	{ Name = "названия_стран" },
+  	{ Name = "стоп_слова"},
+  	{ Name = "маркеры_локаций" },
     { Name = "имена" },
     { Name = "названия" },
     { Name = "граммемы" }
+
+
   ]
   
   Output = {

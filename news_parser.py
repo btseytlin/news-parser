@@ -93,23 +93,23 @@ class NewsMessage():
 #     return response
 
 def clean_up(text):
-    text = text.strip("\"\t\n").strip().split('.')
+    text = text.strip("\"\t\n").strip().replace("`", "\"").split('.')
     #pdebug(str(text))
     clear_text = []
-    prev_ended_with_1_letter = None
+    #prev_ended_with_1_letter = None
     for t in text:
         if not t:
             continue 
         t = t.strip("\"\t\n").strip()
-        first_word = t[:t.find(' ')].strip()
+        #first_word = t[:t.find(' ')].strip()
         #pdebug('rsplit',str(t.rsplit(None, 1)))
-        last_word = t.rsplit(None, 1)[-1].strip()
+        #last_word = t.rsplit(None, 1)[-1].strip()
         #pdebug('f',first_word,'l', last_word)
         #if prev_ended_with_1_letter:
             #pdebug('ended with 1 letter')
-        if first_word.upper() != first_word and not prev_ended_with_1_letter:
-            t = t.replace(first_word, first_word.lower())
-        prev_ended_with_1_letter = len(last_word) == 1
+        #if first_word.upper() != first_word and not prev_ended_with_1_letter:
+        #    t = t.replace(first_word, first_word.lower(), 1)
+        #prev_ended_with_1_letter = len(last_word) == 1
         clear_text.append(t)
 
     text = '. '.join(clear_text)
@@ -120,17 +120,17 @@ def process_spelling(text):
 
 def get_grammemes(text):
     #write text to stdin
-    pdebug("Sending to tomita:", text)
+    pdebug("Sending to tomita:\n----\n", text,"\n----")
     try:
         p = Popen(['tomita/tomitaparser.exe', "tomita/config.proto"], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         stdout_data, stderr_data = p.communicate(input=bytes(text, 'UTF-8'), timeout=45)
-        pdebug("Tomita returned stderr:", "stderr: "+stderr_data.decode("utf-8").strip()+"\n" )
+        pdebug("Tomita returned stderr:\n", "stderr: "+stderr_data.decode("utf-8").strip()+"\n" )
     except TimeoutExpired:
         p.kill()
         pdebug("Tomita killed")
     stdout_data = stdout_data.decode("utf-8")
     facts = parse_tomita_output(stdout_data)
-    pdebug('Received facts:',str(facts))
+    pdebug('Received facts:\n----\n',str(facts),"\n----")
     #launch tomita
     #read tomita output from stdout
     return facts 
@@ -139,14 +139,13 @@ def read_input(fname):
     news_objects = []
     with open(fname, "r", encoding="utf-8-sig") as f:
         for line in f:
-            pdebug("Parsing line\n", line,"\n")
-            pdebug(line)
+            pdebug("Parsing line\n", line,"\n[[[[[==============]]]]]\n")
             atrib = [x.strip("\"").strip() for x in line.split(';')]
-            pdebug(str(atrib))
             news_line = NewsMessage(atrib[0], atrib[1], atrib[2], atrib[3],atrib[4], atrib[5])
             news_line.text = clean_up(news_line.text)
             news_line.grammemes = get_grammemes(news_line.text)
             news_objects.append(news_line)
+            pdebug("[[[[[==============]]]]]")
     return news_objects
 
 def compare(news):
