@@ -6,12 +6,13 @@
 //PersonFirstAndLastName -> (Word<h-reg1, gnc-agr[1]>) Word<h-reg1, gram="имя", gnc-agr[1]> (Word<h-reg1, gnc-agr[1]>);
 //PersonFullName -> Word<h-reg1, gnc-agr[1], rt> Word<h-reg1, gnc-agr[1]> Word<h-reg1, gnc-agr[1]>;
 
-FistName -> Word<kwset=~["названия_стран", "стоп_слова"], h-reg1, wff=/[^\d]{2,}/, gram="имя">;
-SecondName -> Word<kwset=~["названия_стран", "стоп_слова"],h-reg1, wff=/[^\d]{2,}/>  | Word<kwset=~["названия_стран", "стоп_слова"],h-reg1, wff=/[^\d]{1}/> Punct<wff=/\./>;
-PatrName -> Word<kwset=~["названия_стран", "стоп_слова"],h-reg1, wff=/[^\d]{2,}/>  | Word<kwset=~["названия_стран", "стоп_слова"],h-reg1, wff=/[^\d]{1}/> Punct<wff=/\./>;
+FistName -> Word<~quoted, kwset=~["названия_стран", "стоп_слова"], h-reg1, wff=/[^\d]{2,}/, gram="имя">;
+SecondName -> Word<~quoted, kwset=~["названия_стран", "стоп_слова"],h-reg1, wff=/[^\d]{2,}/>  | Word<kwset=~["названия_стран", "стоп_слова"],h-reg1, wff=/[^\d]{1}/> Punct<wff=/\./>;
+PatrName -> Word<~quoted,kwset=~["названия_стран", "стоп_слова"],h-reg1, wff=/[^\d]{2,}/>  | Word<kwset=~["названия_стран", "стоп_слова"],h-reg1, wff=/[^\d]{1}/> Punct<wff=/\./>;
 FullName -> FistName<rt,gnc-agr[1]> (SecondName<gnc-agr[1]>) (PatrName<gnc-agr[1]>);
 
-PersonName -> FullName;
+SpecialCase -> Word<rt, gn-agr[1]> 'де'<h-reg1> Word<gn-agr[1]>; // Маттиа Де Шильо
+PersonName -> FullName  | SpecialCase;
 //PersonName -> Word<h-reg1, gnc—agr[1], rt> Word<h-reg1, gnc—agr[1]>;
 //PersonName -> Word<h-reg1, gnc—agr[1], rt> Word<h-reg1, gnc—agr[1]> Word<h-reg1, gnc—agr[1]> ;
 //Event -> AnyWord<h-reg2> | Noun<h-reg1, gnc—agr[1], rt> Word<h-reg1, gnc—agr[1]>+ | Noun<h-reg1, gnc—agr[1]> Word<l-reg, gnc—agr[1]>+;
