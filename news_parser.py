@@ -12,6 +12,11 @@ def pdebug(*args):
     if _debug:
         print(" ".join(args),file=sys.stderr)
 
+def post_process_tomita_facts(facts):
+    for key in facts.keys():
+        facts[key] = list(set([ x.lower() for x in facts[key] ]))
+    return facts
+
 def parse_tomita_output(text):
     facts = {}
     clearing_text = str(text)
@@ -19,8 +24,6 @@ def parse_tomita_output(text):
         opening_brace = clearing_text.find("{")
         if not opening_brace:
             break
-
-        
         closing_brace = clearing_text.find("}", opening_brace)
         if not closing_brace:
             break
@@ -31,7 +34,8 @@ def parse_tomita_output(text):
             facts[fact_type] = []
         facts[fact_type].append(fact_text)
         clearing_text = clearing_text.replace(fact_body, '')
-    return facts
+    return post_process_tomita_facts(facts)
+
 
 def get_overlaps(facts1, facts2):
     overlaps = {}
