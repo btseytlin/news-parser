@@ -81,23 +81,34 @@ S  ->  PersonName[*Эльвира] :: 0.66666666
 
 ===================== geo.cxx =====================
 
-coverage: 1, weight: 0.36666666
-S  ->  OtherNamed[*Банка] :: 0.66666666
-    OtherNamed  ->  Generic[*Банка] :: 0.66666666
-        Generic  ->  Word[*Банка] :: 0.66666666
-            Word  ->  Банка :: 1
-
-coverage: 1, weight: 0.35
-S  ->  OtherNamed[*России] :: 0.66666666
-    OtherNamed  ->  Generic[*России] :: 0.66666666
-        Generic  ->  Word[*России] :: 0.66666666
-            Word  ->  России :: 1
+coverage: 2, weight: 0.37037037
+S  ->  OtherNamed[*Банка России] :: 0.55555555
+    OtherNamed  ->  Location[*Банка России] :: 0.55555555
+        Location  ->  Noun[*Банка]  {Word@@@@+}[России] :: 0.55555555
+        |   
+        |__ Noun  ->  Банка :: 1
+        |   
+        |__ {Word@@@@+}  ->  {Word@@@@}[*России] :: 0.66666666
+                {Word@@@@}  ->  Word[*России] :: 0.66666666
+                    Word  ->  России :: 1
 
 coverage: 1, weight: 0.33385964
 S  ->  OtherNamed[*ТАСС] :: 0.66666666
     OtherNamed  ->  Generic[*ТАСС] :: 0.66666666
         Generic  ->  Word[*ТАСС] :: 0.66666666
             Word  ->  ТАСС :: 1
+
+DROPPED OCCURRENCE, coverage: 1, weight: 0.36666666
+S  ->  OtherNamed[*Банка] :: 0.66666666
+    OtherNamed  ->  Generic[*Банка] :: 0.66666666
+        Generic  ->  Word[*Банка] :: 0.66666666
+            Word  ->  Банка :: 1
+
+DROPPED OCCURRENCE, coverage: 1, weight: 0.35
+S  ->  OtherNamed[*России] :: 0.66666666
+    OtherNamed  ->  Generic[*России] :: 0.66666666
+        Generic  ->  Word[*России] :: 0.66666666
+            Word  ->  России :: 1
 
 
 
@@ -109,109 +120,109 @@ ROOT  ->  S[*Глава] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*Глава] :: 0.66666666
             AnyWord  ->  Глава :: 1
 
-coverage: 1, weight: 0.34
+coverage: 1, weight: 0.34333333
 ROOT  ->  V[*полагает] :: 0.66666666
     V  ->  {AnyWord%TERM}[*полагает] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*полагает] :: 0.66666666
             AnyWord  ->  полагает :: 1
 
-coverage: 1, weight: 0.33690476
+coverage: 1, weight: 0.33809523
 ROOT  ->  SPRO[*что] :: 0.66666666
     SPRO  ->  {AnyWord%TERM}[*что] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*что] :: 0.66666666
             AnyWord  ->  что :: 1
 
-coverage: 1, weight: 0.33611111
+coverage: 1, weight: 0.33690476
 ROOT  ->  V[*текущий] :: 0.66666666
     V  ->  {AnyWord%TERM}[*текущий] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*текущий] :: 0.66666666
             AnyWord  ->  текущий :: 1
 
-coverage: 1, weight: 0.33555555
+coverage: 1, weight: 0.33611111
 ROOT  ->  S[*курс] :: 0.66666666
     S  ->  {AnyWord%TERM}[*курс] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*курс] :: 0.66666666
             AnyWord  ->  курс :: 1
 
-coverage: 1, weight: 0.33515151
+coverage: 1, weight: 0.33555555
 ROOT  ->  S[*рубля] :: 0.66666666
     S  ->  {AnyWord%TERM}[*рубля] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*рубля] :: 0.66666666
             AnyWord  ->  рубля :: 1
 
-coverage: 1, weight: 0.33484848
+coverage: 1, weight: 0.33515151
 ROOT  ->  A[*близок] :: 0.66666666
     A  ->  {AnyWord%TERM}[*близок] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*близок] :: 0.66666666
             AnyWord  ->  близок :: 1
 
-coverage: 1, weight: 0.33461538
+coverage: 1, weight: 0.33484848
 ROOT  ->  PR[*к] :: 0.66666666
     PR  ->  {AnyWord%TERM}[*к] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*к] :: 0.66666666
             AnyWord  ->  к :: 1
 
-coverage: 1, weight: 0.33443223
+coverage: 1, weight: 0.33461538
 ROOT  ->  SPRO[*своему] :: 0.66666666
     SPRO  ->  {AnyWord%TERM}[*своему] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*своему] :: 0.66666666
             AnyWord  ->  своему :: 1
 
-coverage: 1, weight: 0.33428571
+coverage: 1, weight: 0.33443223
 ROOT  ->  ADV[*фундаментально] :: 0.66666666
     ADV  ->  {AnyWord%TERM}[*фундаментально] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*фундаментально] :: 0.66666666
             AnyWord  ->  фундаментально :: 1
 
-coverage: 1, weight: 0.33416666
+coverage: 1, weight: 0.33428571
 ROOT  ->  V[*обоснованному] :: 0.66666666
     V  ->  {AnyWord%TERM}[*обоснованному] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*обоснованному] :: 0.66666666
             AnyWord  ->  обоснованному :: 1
 
-coverage: 1, weight: 0.33406862
+coverage: 1, weight: 0.33416666
 ROOT  ->  S[*курсу] :: 0.66666666
     S  ->  {AnyWord%TERM}[*курсу] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*курсу] :: 0.66666666
             AnyWord  ->  курсу :: 1
 
-coverage: 1, weight: 0.33391812
+coverage: 1, weight: 0.33398692
 ROOT  ->  V[*передает] :: 0.66666666
     V  ->  {AnyWord%TERM}[*передает] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*передает] :: 0.66666666
             AnyWord  ->  передает :: 1
 
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33690476
+DROPPED OCCURRENCE, coverage: 1, weight: 0.33809523
 ROOT  ->  ADVPRO[*что] :: 0.66666666
     ADVPRO  ->  {AnyWord%TERM}[*что] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*что] :: 0.66666666
             AnyWord  ->  что :: 1
 
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33690476
+DROPPED OCCURRENCE, coverage: 1, weight: 0.33809523
 ROOT  ->  CONJ[*что] :: 0.66666666
     CONJ  ->  {AnyWord%TERM}[*что] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*что] :: 0.66666666
             AnyWord  ->  что :: 1
 
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33611111
+DROPPED OCCURRENCE, coverage: 1, weight: 0.33690476
 ROOT  ->  A[*текущий] :: 0.66666666
     A  ->  {AnyWord%TERM}[*текущий] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*текущий] :: 0.66666666
             AnyWord  ->  текущий :: 1
 
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33443223
+DROPPED OCCURRENCE, coverage: 1, weight: 0.33461538
 ROOT  ->  APRO[*своему] :: 0.66666666
     APRO  ->  {AnyWord%TERM}[*своему] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*своему] :: 0.66666666
             AnyWord  ->  своему :: 1
 
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33428571
+DROPPED OCCURRENCE, coverage: 1, weight: 0.33443223
 ROOT  ->  A[*фундаментально] :: 0.66666666
     A  ->  {AnyWord%TERM}[*фундаментально] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*фундаментально] :: 0.66666666
             AnyWord  ->  фундаментально :: 1
 
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33416666
+DROPPED OCCURRENCE, coverage: 1, weight: 0.33428571
 ROOT  ->  A[*обоснованному] :: 0.66666666
     A  ->  {AnyWord%TERM}[*обоснованному] :: 0.66666666
         {AnyWord%TERM}  ->  AnyWord[*обоснованному] :: 0.66666666
@@ -221,12 +232,12 @@ ROOT  ->  A[*обоснованному] :: 0.66666666
 
 ==================== multiwords ====================
 
-Банка: TAuxDicArticle, 
+Банка_России: TAuxDicArticle, 
 	названия, 
 Глава: TAuxDicArticle, 
 	граммемы, стоп_слова, 
 России: TAuxDicArticle, 
-	названия, названия_стран, 
+	названия_стран, 
 ТАСС: TAuxDicArticle, 
 	названия, 
 Эльвира_Набиуллина: TAuxDicArticle, 

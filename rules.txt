@@ -176,7 +176,7 @@ Generic  ->  Word[*Глава]  {Word@+}[Банка] ::
 
 
 Location  ->  Noun[*Глава]  {Word@@@@+}[Банка] ::
-    Ok: gnc-agr(0,1) ~quoted(0) 
+    Ok: nc-agr(0,1) ~quoted(0) 
 
 
 OtherNamed  ->  Location[*Глава Банка] ::
@@ -195,9 +195,6 @@ Generic  ->  Word[*России] ::
 Quoted  ->  Word[*России] ::
 >> FAILED:
         quoted(0) 
-
-
-Geog  ->  AnyWord[*России]<kwt=названия_стран> ::
 
 
 {Word@}  ->  Word[*России] ::
@@ -224,9 +221,6 @@ Geog  ->  AnyWord[*России]<kwt=названия_стран> ::
 OtherNamed  ->  Generic[*России] ::
 
 
-OtherNamed  ->  Geog[*России] ::
-
-
 {Word@+}  ->  {Word@}[*России] ::
 
 
@@ -239,8 +233,7 @@ OtherNamed  ->  Geog[*России] ::
 
 
 {Word@@@@+}  ->  {Word@@@@+}[*Банка]  {Word@@@@}[России] ::
->> FAILED:
-        gnc-agr(0,1) 
+    Ok: nc-agr(0,1) 
 
 
 S  ->  OtherNamed[*России] ::
@@ -253,8 +246,20 @@ Generic  ->  Word[*Банка]  {Word@+}[России] ::
 
 
 Location  ->  Noun[*Банка]  {Word@@@@+}[России] ::
+    Ok: nc-agr(0,1) ~quoted(0) 
+
+
+Location  ->  Noun[*Глава]  {Word@@@@+}[Банка России] ::
 >> FAILED:
-        gnc-agr(0,1) ~quoted(0) 
+        nc-agr(0,1) ~quoted(0) 
+
+
+OtherNamed  ->  Location[*Банка России] ::
+    Ok: wfm[0]=/^([^\s]{4,})$/
+
+
+S  ->  OtherNamed[*Банка России] ::
+    Ok: grams(0)=~persn kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})$/
 
 
 Generic  ->  Word[*Эльвира_Набиуллина] ::
@@ -301,7 +306,12 @@ GenericName  ->  CamelCase[*Эльвира_Набиуллина] ::
 
 {Word@@@@+}  ->  {Word@@@@+}[*России]  {Word@@@@}[Эльвира_Набиуллина] ::
 >> FAILED:
-        gnc-agr(0,1) 
+        nc-agr(0,1) 
+
+
+{Word@@@@+}  ->  {Word@@@@+}[*Банка России]  {Word@@@@}[Эльвира_Набиуллина] ::
+>> FAILED:
+        nc-agr(0,1) 
 
 
 OtherNamed  ->  GenericName[*Эльвира_Набиуллина] ::
@@ -309,7 +319,7 @@ OtherNamed  ->  GenericName[*Эльвира_Набиуллина] ::
 
 Location  ->  Noun[*России]  {Word@@@@+}[Эльвира_Набиуллина] ::
 >> FAILED:
-        gnc-agr(0,1) ~quoted(0) 
+        nc-agr(0,1) ~quoted(0) 
 
 
 S  ->  OtherNamed[*Эльвира_Набиуллина] ::
@@ -425,150 +435,76 @@ S  ->  {AnyWord%TERM}[*Глава] ::
 ROOT  ->  S[*Глава] ::
 
 
-{AnyWord%TERM}  ->  AnyWord[*Банка] ::
+{AnyWord%TERM}  ->  AnyWord[*Банка_России] ::
 
 
-A  ->  {AnyWord%TERM}[*Банка] ::
+A  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*Банка] ::
+ADV  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*Банка] ::
+ADVPRO  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*Банка] ::
+ANUM  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*Банка] ::
+APRO  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*Банка] ::
+COM  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*Банка] ::
+CONJ  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*Банка] ::
+INTJ  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*Банка] ::
+NUM  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*Банка] ::
+PART  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*Банка] ::
+PR  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*Банка] ::
+SPRO  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*Банка] ::
+V  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*Банка] ::
->> FAILED:
-        grams(0)=S kwset(0)~=[имена названия ] 
-
-
-{AnyWord%TERM}  ->  AnyWord[*России] ::
-
-
-A  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*России] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*России] ::
+S  ->  {AnyWord%TERM}[*Банка_России] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
