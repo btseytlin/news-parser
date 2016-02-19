@@ -1,7 +1,7 @@
 #encoding "utf-8"    // сообщаем парсеру о том, в какой кодировке написана грамматика
 #GRAMMAR_ROOT S     // указываем корневой нетерминал грамматики
 
-Generic -> Word<gram="~V,~A,~ADV,~APRO,~brev,~poss", ~quoted, h-reg1,wff=/([^\s]{4,})/, gnc-agr[1]> Word<~quoted, h-reg1,wff=/([^\s]{4,})/, gnc-agr[1]>*;
+Generic -> Word<gram="~V,~A,~ADV,~APRO,~brev,~poss", kwset=~["имена", "стоп_слова"], ~quoted, h-reg1,wff=/([^\s]{4,})/, gnc-agr[1]> Word< kwset=~["имена", "стоп_слова"],~quoted, h-reg1,wff=/([^\s]{4,})/, gnc-agr[1]>*;
 Quoted -> Word<h-reg1, quoted,gnc-agr[1]> Word<quoted,gnc-agr[1]>*;
 Abbr -> AnyWord<gram="abbr">;
 Geog -> Geo | AnyWord<kwtype='названия_стран'>;
@@ -16,5 +16,5 @@ Location ->  Noun<~quoted, h-reg1, gnc-agr[1], rt> Word<~quoted, h-reg1, gnc-agr
 Location -> Adj<h-reg1, gnc-agr[1]> AnyWord<kwtype='маркеры_локаций',gnc-agr[1]>;
 Location -> AnyWord<h-reg1, kwtype='маркеры_локаций'> Noun<h-reg1>;
 OtherNamed -> Location<wff=/([^\s]{4,})/> | GenericName | Event<wff=/([^\s]{4,})/> | Generic | Geog;// | GeographicalNamedAfter |  Event;
-S -> OtherNamed<kwset=~["имена", "стоп_слова"], wff=/([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})/> interp (EntityName.Name);
+S -> OtherNamed<gram="~имя", kwset=~["имена", "стоп_слова"], wff=/([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})/> interp (EntityName.Name);
 

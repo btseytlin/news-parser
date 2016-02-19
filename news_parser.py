@@ -3,6 +3,7 @@ import getopt
 import os
 import json
 import re
+from difflib import SequenceMatcher
 #import urllib2
 from subprocess import Popen, PIPE, STDOUT, TimeoutExpired
 
@@ -11,6 +12,44 @@ sys.stderr = open(os.path.dirname(os.path.abspath(__file__))+'\\debug.txt', 'w',
 def pdebug(*args):
     if _debug:
         print(" ".join(args),file=sys.stderr)
+
+def fuzzy_match(word1, word2):
+    if len(word1) < len(word2):
+        minlen_word = word1
+        maxlen_word = word2
+    else:
+        maxlen_word = word1
+        minlen_word = word2
+
+    word1 = word1.split()
+    word1.sort()
+    word2 = word2.split()
+    word2.sort()
+
+    word1 = set(word1)
+    word2 = set(word2)
+
+    intersection = word1.intersection(word2)
+    difference1 = list(word1 - intersection)
+    difference2 = list(word2 - intersection)
+    intersection = list(intersection)
+    difference1.sort()
+    difference2.sort()
+    intersection.sort()
+
+    t0 = " ".join(intersection)
+    t1 = " ".join(intersection) + " ".join(difference1)
+    t2 = " ".join(intersection) +  " ".join(difference2)
+
+    scores = [ 
+        SequenceMatcher(None, t0, t1).ratio(),
+        SequenceMatcher(None, t0, t2).ratio(),
+        SequenceMatcher(None, t1, t2).ratio(),
+    ]
+
+    if max(scores) > 0.65:
+        return True
+    return False
 
 def post_process_tomita_facts(facts):
     for key in facts.keys():
@@ -43,6 +82,18 @@ def get_overlaps(facts1, facts2):
     for key in facts1.keys():
         if key in facts2.keys():
             overlaps[key] = len(frozenset(facts1[key]).intersection(facts2[key]))
+
+            pdebug('%d complete overlaps between facts for key \"%s\"'%( overlaps[key], key))
+            pdebug('Complete overlaps:\n %s'%(str(frozenset(facts1[key]).intersection(facts2[key]))))
+            if key == "EntityName":
+                for fact in facts1[key]:
+                    for fact1 in facts2[key]:
+                        if fact != fact1:
+                            pdebug("fuzzy matching", fact, fact1)
+                            if fuzzy_match(fact, fact1):
+                                pdebug('Partial overlap \"%s\" and \"%s\"'%(fact, fact1))
+                                overlaps[key] += 1
+
     pdebug("Overlaps:\n %s"%(str(overlaps)))
     return overlaps
 
