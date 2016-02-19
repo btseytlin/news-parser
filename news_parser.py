@@ -7,10 +7,16 @@ from difflib import SequenceMatcher
 #import urllib2
 from subprocess import Popen, PIPE, STDOUT, TimeoutExpired
 
-_debug = True
-sys.stderr = open(os.path.dirname(os.path.abspath(__file__))+'\\debug.txt', 'w',encoding="utf-8")
+_debug = False
+stderr_set = False
 def pdebug(*args):
     if _debug:
+
+        global stderr_set
+        if not stderr_set:
+            sys.stderr = open(os.path.dirname(os.path.abspath(__file__))+'\\debug.txt', 'w',encoding="utf-8")
+            stderr_set = True
+
         print(" ".join(args),file=sys.stderr)
 
 def fuzzy_match(word1, word2):
@@ -135,19 +141,7 @@ class NewsMessage():
     def __repr__(self):
         return "%s;%s;%s;%s;%s"%(self.id, self.title, self.text, self.cluster, "["+",".join(self.grammemes)+"]")
 
-# not done
-# def json_post_yandex_speller(text):
-#     data = {
-#         'text': text
-#     }
-#     req = urllib2.Request('http://speller.yandex.net/services/spellservice.json/checkText')
-#     req.add_header('Content-Type', 'application/json')
-#     response = urllib2.urlopen(req, json.dumps(data))
-
-#     response = json.loads(response)
-#     return response
-
-def clean_up(text):
+def preprocess(text):
     text = text.strip("\"\t\n").strip().split('.')
     #pdebug(str(text))
     clear_text = []
@@ -197,7 +191,7 @@ def read_input(fname):
             pdebug("Parsing line\n", line,"\n[[[[[==============]]]]]\n")
             atrib = [x.strip("\"").strip() for x in line.split(';')]
             news_line = NewsMessage(atrib[0], atrib[1], atrib[2], atrib[3],atrib[4], atrib[5])
-            news_line.text = clean_up(news_line.text)
+            news_line.text = preprocess(news_line.text)
             news_line.grammemes = get_grammemes(news_line.text)
             news_objects.append(news_line)
             pdebug("[[[[[==============]]]]]")
