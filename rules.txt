@@ -10,64 +10,28 @@
 
 ========================================== processing stopwords.cxx ==========================================
 
-V  ->  AnyWord[*провела] ::
+PR  ->  AnyWord[*от] ::
 
 
-ROOT  ->  V[*провела] ::
+EXACTWORDS  ->  от[*от] ::
 
 
-PR  ->  AnyWord[*за] ::
+ROOT  ->  PR[*от] ::
 
 
-EXACTWORDS  ->  за[*за] ::
+ROOT  ->  EXACTWORDS[*от] ::
 
 
-ROOT  ->  PR[*за] ::
+PR  ->  AnyWord[*с] ::
 
 
-ROOT  ->  EXACTWORDS[*за] ::
+EXACTWORDS  ->  с[*с] ::
 
 
-NUM  ->  AnyWord[*три] ::
+ROOT  ->  PR[*с] ::
 
 
-V  ->  AnyWord[*три] ::
-
-
-EXACTWORDS  ->  три[*три] ::
-
-
-ROOT  ->  NUM[*три] ::
-
-
-ROOT  ->  V[*три] ::
-
-
-ROOT  ->  EXACTWORDS[*три] ::
-
-
-EXACTWORDS  ->  день[*дня] ::
-
-
-ROOT  ->  EXACTWORDS[*дня] ::
-
-
-ADV  ->  AnyWord[*против] ::
-
-
-PR  ->  AnyWord[*против] ::
-
-
-EXACTWORDS  ->  против[*против] ::
-
-
-ROOT  ->  ADV[*против] ::
-
-
-ROOT  ->  PR[*против] ::
-
-
-ROOT  ->  EXACTWORDS[*против] ::
+ROOT  ->  EXACTWORDS[*с] ::
 
 
 ********************************** finished stopwords.cxx **********************************
@@ -78,934 +42,1229 @@ ROOT  ->  EXACTWORDS[*против] ::
 
 ========================================== processing geo.cxx ==========================================
 
-{Word@}  ->  Word[*Иордания] ::
-    Ok: ~quoted(0) kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\s]{4,})$/
+Generic  ->  Word[*Нападающий] ::
+    Ok: ~quoted(0) wfm[0]=/^([^\s]{4,})$/
 
 
-Quoted  ->  Word[*Иордания] ::
+Quoted  ->  Word[*Нападающий] ::
 >> FAILED:
         quoted(0) 
 
 
-{Word@+}  ->  {Word@}[*Иордания] ::
+OtherNamed  ->  Generic[*Нападающий] ::
 
 
-Generic  ->  {Word@+}[*Иордания] ::
-
-
-OtherNamed  ->  Generic[*Иордания] ::
-
-
-S  ->  OtherNamed[*Иордания] ::
+S  ->  OtherNamed[*Нападающий] ::
     Ok: kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})$/
 
 
-{Word@@}  ->  Word[*провела] ::
+Generic  ->  Word[*Барселоны] ::
 >> FAILED:
-        quoted(0) 
+        ~quoted(0) wfm[0]=/^([^\s]{4,})$/
 
 
-{Word@@@@@}  ->  Word[*провела] ::
-    Ok: ~quoted(0) 
+Quoted  ->  Word[*Барселоны] ::
+    Ok: quoted(0) 
 
 
-{Word@@@@@+}  ->  {Word@@@@@}[*провела] ::
-
-
-Location  ->  Noun[*Иордания]  {Word@@@@@+}[провела] ::
+{Word@}  ->  Word[*Барселоны] ::
 >> FAILED:
-        gnc-agr(0,1) ~quoted(0) 
+        ~quoted(0) wfm[0]=/^([^\s]{4,})$/
 
 
-{Word@@@@@}  ->  Word[*за] ::
-    Ok: ~quoted(0) 
+{Word@@}  ->  Word[*Барселоны] ::
+    Ok: quoted(0) 
 
 
-{Word@@@@@+}  ->  {Word@@@@@+}[*провела]  {Word@@@@@}[за] ::
+{Word@@@@}  ->  Word[*Барселоны] ::
+>> FAILED:
+        ~quoted(0) 
+
+
+Event  ->  Adj[Нападающий]  Noun[*Барселоны] ::
 >> FAILED:
         gnc-agr(0,1) 
 
 
-{Word@}  ->  Word[*56] ::
+GenericName  ->  Quoted[*Барселоны] ::
+
+
+{Word@@+}  ->  {Word@@}[*Барселоны] ::
+
+
+OtherNamed  ->  GenericName[*Барселоны] ::
+
+
+Quoted  ->  Word[*Нападающий]  {Word@@+}[Барселоны] ::
 >> FAILED:
-        ~quoted(0) kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\s]{4,})$/
+        gnc-agr(0,1) quoted(0) 
 
 
-Quoted  ->  Word[*56] ::
->> FAILED:
-        quoted(0) 
-
-
-{Word@@}  ->  Word[*воздушных] ::
->> FAILED:
-        quoted(0) 
-
-
-{Word@}  ->  Word[*Исламского] ::
-    Ok: ~quoted(0) kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\s]{4,})$/
-
-
-Quoted  ->  Word[*Исламского] ::
->> FAILED:
-        quoted(0) 
-
-
-{Word@+}  ->  {Word@}[*Исламского] ::
-
-
-Generic  ->  {Word@+}[*Исламского] ::
-
-
-OtherNamed  ->  Generic[*Исламского] ::
-
-
-S  ->  OtherNamed[*Исламского] ::
+S  ->  OtherNamed[*Барселоны] ::
     Ok: kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})$/
 
 
-{Word@@}  ->  Word[*государства] ::
+Generic  ->  Word[*Неймар] ::
+    Ok: ~quoted(0) wfm[0]=/^([^\s]{4,})$/
+
+
+Quoted  ->  Word[*Неймар] ::
 >> FAILED:
         quoted(0) 
+
+
+{Word@}  ->  Word[*Неймар] ::
+    Ok: ~quoted(0) wfm[0]=/^([^\s]{4,})$/
+
+
+{Word@@}  ->  Word[*Неймар] ::
+>> FAILED:
+        quoted(0) 
+
+
+{Word@@}  ->  Word[*Неймар] ::
+>> FAILED:
+        quoted(0) 
+
+
+{Word@@@@}  ->  Word[*Неймар] ::
+    Ok: ~quoted(0) 
+
+
+OtherNamed  ->  Generic[*Неймар] ::
+
+
+{Word@+}  ->  {Word@}[*Неймар] ::
+
+
+{Word@@@@+}  ->  {Word@@@@}[*Неймар] ::
+
+
+S  ->  OtherNamed[*Неймар] ::
+    Ok: kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})$/
+
+
+Generic  ->  Word[*Барселоны]  {Word@+}[Неймар] ::
+>> FAILED:
+        gnc-agr(0,1) ~quoted(0) wfm[0]=/^([^\s]{4,})$/
+
+
+Location  ->  Noun[*Барселоны]  {Word@@@@+}[Неймар] ::
+>> FAILED:
+        gnc-agr(0,1) ~quoted(0) 
+
+
+{Word@@}  ->  Word[*поделился] ::
+>> FAILED:
+        quoted(0) 
+
+
+Generic  ->  Word[*Примеры] ::
+    Ok: ~quoted(0) wfm[0]=/^([^\s]{4,})$/
+
+
+Quoted  ->  Word[*Примеры] ::
+>> FAILED:
+        quoted(0) 
+
+
+OtherNamed  ->  Generic[*Примеры] ::
+
+
+S  ->  OtherNamed[*Примеры] ::
+    Ok: kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})$/
+
+
+{Word@@}  ->  Word[*с] ::
+>> FAILED:
+        quoted(0) 
+
+
+{Word@@@@@}  ->  Word[*с] ::
+    Ok: ~quoted(0) 
+
+
+{Word@@@@@+}  ->  {Word@@@@@}[*с] ::
+
+
+Location  ->  Noun[*Примеры]  {Word@@@@@+}[с] ::
+>> FAILED:
+        gnc-agr(0,1) ~quoted(0) 
+
+
+Generic  ->  Word[*Леванте] ::
+>> FAILED:
+        ~quoted(0) wfm[0]=/^([^\s]{4,})$/
+
+
+Quoted  ->  Word[*Леванте] ::
+    Ok: quoted(0) 
+
+
+GenericName  ->  Quoted[*Леванте] ::
+
+
+OtherNamed  ->  GenericName[*Леванте] ::
+
+
+S  ->  OtherNamed[*Леванте] ::
+    Ok: kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})$/
 
 
 ********************************** finished geo.cxx **********************************
 
-{AnyWord%TERM}  ->  AnyWord[*Иордания] ::
+{AnyWord%TERM}  ->  AnyWord[*Нападающий] ::
 
 
-A  ->  {AnyWord%TERM}[*Иордания] ::
+A  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*Иордания] ::
+ADV  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*Иордания] ::
+ADVPRO  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*Иордания] ::
+ANUM  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*Иордания] ::
+APRO  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*Иордания] ::
+COM  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*Иордания] ::
+CONJ  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*Иордания] ::
+INTJ  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*Иордания] ::
+NUM  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*Иордания] ::
+PART  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*Иордания] ::
+PR  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*Иордания] ::
+SPRO  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*Иордания] ::
+V  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*Иордания] ::
+S  ->  {AnyWord%TERM}[*Нападающий] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-{AnyWord%TERM}  ->  AnyWord[*провела] ::
+{AnyWord%TERM}  ->  AnyWord[*Барселоны] ::
 
 
-A  ->  {AnyWord%TERM}[*провела] ::
+A  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*провела] ::
+ADV  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*провела] ::
+ADVPRO  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*провела] ::
+ANUM  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*провела] ::
+APRO  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*провела] ::
+COM  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*провела] ::
+CONJ  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*провела] ::
+INTJ  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*провела] ::
+NUM  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*провела] ::
+PART  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*провела] ::
+PR  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*провела] ::
+SPRO  ->  {AnyWord%TERM}[*Барселоны] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*провела] ::
+V  ->  {AnyWord%TERM}[*Барселоны] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*Барселоны] ::
+>> FAILED:
+        grams(0)=S kwset(0)~=[имена названия ] 
+
+
+{AnyWord%TERM}  ->  AnyWord[*Неймар] ::
+
+
+A  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=S kwset(0)~=[имена названия ] 
+
+
+{AnyWord%TERM}  ->  AnyWord[*поделился] ::
+
+
+A  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*поделился] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*поделился] ::
     Ok: grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*провела] ::
+S  ->  {AnyWord%TERM}[*поделился] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  V[*провела] ::
+ROOT  ->  V[*поделился] ::
 
 
-{AnyWord%TERM}  ->  AnyWord[*за] ::
+{AnyWord%TERM}  ->  AnyWord[*впечатлениями] ::
 
 
-A  ->  {AnyWord%TERM}[*за] ::
+A  ->  {AnyWord%TERM}[*впечатлениями] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*за] ::
+ADV  ->  {AnyWord%TERM}[*впечатлениями] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*за] ::
+ADVPRO  ->  {AnyWord%TERM}[*впечатлениями] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*за] ::
+ANUM  ->  {AnyWord%TERM}[*впечатлениями] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*за] ::
+APRO  ->  {AnyWord%TERM}[*впечатлениями] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*за] ::
+COM  ->  {AnyWord%TERM}[*впечатлениями] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*за] ::
+CONJ  ->  {AnyWord%TERM}[*впечатлениями] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*за] ::
+INTJ  ->  {AnyWord%TERM}[*впечатлениями] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*за] ::
+NUM  ->  {AnyWord%TERM}[*впечатлениями] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*за] ::
+PART  ->  {AnyWord%TERM}[*впечатлениями] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*за] ::
+PR  ->  {AnyWord%TERM}[*впечатлениями] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*впечатлениями] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*впечатлениями] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*впечатлениями] ::
+    Ok: grams(0)=S kwset(0)~=[имена названия ] 
+
+
+ROOT  ->  S[*впечатлениями] ::
+
+
+{AnyWord%TERM}  ->  AnyWord[*от] ::
+
+
+A  ->  {AnyWord%TERM}[*от] ::
+>> FAILED:
+        grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*от] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*от] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*от] ::
+>> FAILED:
+        grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*от] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*от] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*от] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*от] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*от] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*от] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*от] ::
     Ok: grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*за] ::
+SPRO  ->  {AnyWord%TERM}[*от] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*за] ::
+V  ->  {AnyWord%TERM}[*от] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*за] ::
+S  ->  {AnyWord%TERM}[*от] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  PR[*за] ::
+ROOT  ->  PR[*от] ::
 
 
-{AnyWord%TERM}  ->  AnyWord[*три] ::
+{AnyWord%TERM}  ->  AnyWord[*домашнего] ::
 
 
-A  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*три] ::
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-    Ok: grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*три] ::
-    Ok: grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=S kwset(0)~=[имена названия ] 
-
-
-ROOT  ->  NUM[*три] ::
-
-
-ROOT  ->  V[*три] ::
-
-
-{AnyWord%TERM}  ->  AnyWord[*дня] ::
-
-
-A  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*дня] ::
-    Ok: grams(0)=S kwset(0)~=[имена названия ] 
-
-
-ROOT  ->  S[*дня] ::
-
-
-{AnyWord%TERM}  ->  AnyWord[*56] ::
-
-
-A  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*56] ::
-    Ok: kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=S kwset(0)~=[имена названия ] 
-
-
-ROOT  ->  NUM[*56] ::
-
-
-{AnyWord%TERM}  ->  AnyWord[*воздушных] ::
-
-
-A  ->  {AnyWord%TERM}[*воздушных] ::
+A  ->  {AnyWord%TERM}[*домашнего] ::
     Ok: grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*воздушных] ::
+ADV  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*воздушных] ::
+ADVPRO  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*воздушных] ::
+ANUM  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*воздушных] ::
+APRO  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*воздушных] ::
+COM  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*воздушных] ::
+CONJ  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*воздушных] ::
+INTJ  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*воздушных] ::
+NUM  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*воздушных] ::
+PART  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*воздушных] ::
+PR  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*воздушных] ::
+SPRO  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*воздушных] ::
+V  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*воздушных] ::
+S  ->  {AnyWord%TERM}[*домашнего] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  A[*воздушных] ::
+ROOT  ->  A[*домашнего] ::
 
 
-{AnyWord%TERM}  ->  AnyWord[*рейдов] ::
+{AnyWord%TERM}  ->  AnyWord[*матча] ::
 
 
-A  ->  {AnyWord%TERM}[*рейдов] ::
-    Ok: grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*рейдов] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*рейдов] ::
-    Ok: grams(0)=S kwset(0)~=[имена названия ] 
-
-
-ROOT  ->  A[*рейдов] ::
-
-
-ROOT  ->  S[*рейдов] ::
-
-
-{AnyWord%TERM}  ->  AnyWord[*против] ::
-
-
-A  ->  {AnyWord%TERM}[*против] ::
+A  ->  {AnyWord%TERM}[*матча] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*против] ::
-    Ok: grams(0)=ADV kwset(0)~=[имена названия ] 
+ADV  ->  {AnyWord%TERM}[*матча] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*против] ::
+ADVPRO  ->  {AnyWord%TERM}[*матча] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*против] ::
+ANUM  ->  {AnyWord%TERM}[*матча] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*против] ::
+APRO  ->  {AnyWord%TERM}[*матча] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*против] ::
+COM  ->  {AnyWord%TERM}[*матча] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*против] ::
+CONJ  ->  {AnyWord%TERM}[*матча] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*против] ::
+INTJ  ->  {AnyWord%TERM}[*матча] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*против] ::
+NUM  ->  {AnyWord%TERM}[*матча] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*против] ::
+PART  ->  {AnyWord%TERM}[*матча] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*против] ::
+PR  ->  {AnyWord%TERM}[*матча] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*матча] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*матча] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*матча] ::
+    Ok: grams(0)=S kwset(0)~=[имена названия ] 
+
+
+ROOT  ->  S[*матча] ::
+
+
+{AnyWord%TERM}  ->  AnyWord[*23-го] ::
+
+
+A  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*23-го] ::
+    Ok: grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*23-го] ::
+>> FAILED:
+        grams(0)=S kwset(0)~=[имена названия ] 
+
+
+ROOT  ->  ANUM[*23-го] ::
+
+
+{AnyWord%TERM}  ->  AnyWord[*тура] ::
+
+
+A  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*тура] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*тура] ::
+    Ok: grams(0)=S kwset(0)~=[имена названия ] 
+
+
+ROOT  ->  S[*тура] ::
+
+
+{AnyWord%TERM}  ->  AnyWord[*испанской] ::
+
+
+A  ->  {AnyWord%TERM}[*испанской] ::
+    Ok: grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*испанской] ::
+>> FAILED:
+        grams(0)=S kwset(0)~=[имена названия ] 
+
+
+ROOT  ->  A[*испанской] ::
+
+
+{AnyWord%TERM}  ->  AnyWord[*Примеры] ::
+
+
+A  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*Примеры] ::
+>> FAILED:
+        grams(0)=S kwset(0)~=[имена названия ] 
+
+
+{AnyWord%TERM}  ->  AnyWord[*с] ::
+
+
+A  ->  {AnyWord%TERM}[*с] ::
+>> FAILED:
+        grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*с] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*с] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*с] ::
+>> FAILED:
+        grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*с] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*с] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*с] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*с] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*с] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*с] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*с] ::
     Ok: grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*против] ::
+SPRO  ->  {AnyWord%TERM}[*с] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*против] ::
+V  ->  {AnyWord%TERM}[*с] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*против] ::
+S  ->  {AnyWord%TERM}[*с] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  ADV[*против] ::
+ROOT  ->  PR[*с] ::
 
 
-ROOT  ->  PR[*против] ::
+{AnyWord%TERM}  ->  AnyWord[*Леванте] ::
 
 
-{AnyWord%TERM}  ->  AnyWord[*Исламского] ::
-
-
-A  ->  {AnyWord%TERM}[*Исламского] ::
+A  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*Исламского] ::
+ADV  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*Исламского] ::
+ADVPRO  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*Исламского] ::
+ANUM  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*Исламского] ::
+APRO  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*Исламского] ::
+COM  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*Исламского] ::
+CONJ  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*Исламского] ::
+INTJ  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*Исламского] ::
+NUM  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*Исламского] ::
+PART  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*Исламского] ::
+PR  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*Исламского] ::
+SPRO  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*Исламского] ::
+V  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*Исламского] ::
+S  ->  {AnyWord%TERM}[*Леванте] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
-
-
-{AnyWord%TERM}  ->  AnyWord[*государства] ::
-
-
-A  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*государства] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*государства] ::
-    Ok: grams(0)=S kwset(0)~=[имена названия ] 
-
-
-ROOT  ->  S[*государства] ::
 
 
 {AnyWord%TERM}  ->  AnyWord[*.] ::
@@ -1096,64 +1355,28 @@ S  ->  {AnyWord%TERM}[*.] ::
 
 ========================================== processing stopwords.cxx ==========================================
 
-V  ->  AnyWord[*осуществили] ::
+PR  ->  AnyWord[*со] ::
 
 
-ROOT  ->  V[*осуществили] ::
+EXACTWORDS  ->  со[*со] ::
 
 
-PR  ->  AnyWord[*за] ::
+ROOT  ->  PR[*со] ::
 
 
-EXACTWORDS  ->  за[*за] ::
+ROOT  ->  EXACTWORDS[*со] ::
 
 
-ROOT  ->  PR[*за] ::
+PR  ->  AnyWord[*на] ::
 
 
-ROOT  ->  EXACTWORDS[*за] ::
+EXACTWORDS  ->  на[*на] ::
 
 
-NUM  ->  AnyWord[*три] ::
+ROOT  ->  PR[*на] ::
 
 
-V  ->  AnyWord[*три] ::
-
-
-EXACTWORDS  ->  три[*три] ::
-
-
-ROOT  ->  NUM[*три] ::
-
-
-ROOT  ->  V[*три] ::
-
-
-ROOT  ->  EXACTWORDS[*три] ::
-
-
-EXACTWORDS  ->  день[*дня] ::
-
-
-ROOT  ->  EXACTWORDS[*дня] ::
-
-
-V  ->  AnyWord[*нанося] ::
-
-
-ROOT  ->  V[*нанося] ::
-
-
-PR  ->  AnyWord[*по] ::
-
-
-EXACTWORDS  ->  по[*по] ::
-
-
-ROOT  ->  PR[*по] ::
-
-
-ROOT  ->  EXACTWORDS[*по] ::
+ROOT  ->  EXACTWORDS[*на] ::
 
 
 ********************************** finished stopwords.cxx **********************************
@@ -1164,856 +1387,576 @@ ROOT  ->  EXACTWORDS[*по] ::
 
 ========================================== processing geo.cxx ==========================================
 
-{Word@}  ->  Word[*Иорданские] ::
-    Ok: ~quoted(0) kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\s]{4,})$/
+Generic  ->  Word[*Встреча] ::
+    Ok: ~quoted(0) wfm[0]=/^([^\s]{4,})$/
 
 
-Quoted  ->  Word[*Иорданские] ::
+Quoted  ->  Word[*Встреча] ::
 >> FAILED:
         quoted(0) 
 
 
-{Word@+}  ->  {Word@}[*Иорданские] ::
+OtherNamed  ->  Generic[*Встреча] ::
 
 
-Generic  ->  {Word@+}[*Иорданские] ::
-
-
-OtherNamed  ->  Generic[*Иорданские] ::
-
-
-S  ->  OtherNamed[*Иорданские] ::
+S  ->  OtherNamed[*Встреча] ::
     Ok: kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})$/
 
 
-{Word@}  ->  Word[*ВВС] ::
->> FAILED:
-        ~quoted(0) kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\s]{4,})$/
-
-
-Quoted  ->  Word[*ВВС] ::
+{Word@@}  ->  Word[*завершилась] ::
 >> FAILED:
         quoted(0) 
 
 
-Abbr  ->  AnyWord[*ВВС] ::
+Generic  ->  Word[*Неймар] ::
+    Ok: ~quoted(0) wfm[0]=/^([^\s]{4,})$/
 
 
-CamelCase  ->  AnyWord[*ВВС] ::
-
-
-{Word@@}  ->  Word[*ВВС] ::
+Quoted  ->  Word[*Неймар] ::
 >> FAILED:
         quoted(0) 
 
 
-{Word@@@@}  ->  Word[*ВВС] ::
-    Ok: ~quoted(0) 
+OtherNamed  ->  Generic[*Неймар] ::
 
 
-{Word@}  ->  Word[*ВВС] ::
->> FAILED:
-        ~quoted(0) kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\s]{4,})$/
-
-
-GenericName  ->  Abbr[*ВВС] ::
-
-
-GenericName  ->  CamelCase[*ВВС] ::
-
-
-{Word@@@@+}  ->  {Word@@@@}[*ВВС] ::
-
-
-OtherNamed  ->  GenericName[*ВВС] ::
-
-
-Location  ->  Noun[*Иорданские]  {Word@@@@+}[ВВС] ::
-    Ok: gnc-agr(0,1) ~quoted(0) 
-
-
-S  ->  OtherNamed[*ВВС] ::
+S  ->  OtherNamed[*Неймар] ::
     Ok: kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})$/
 
 
-OtherNamed  ->  Location[*Иорданские ВВС] ::
-    Ok: wfm[0]=/^([^\s]{4,})$/
-
-
-S  ->  OtherNamed[*Иорданские ВВС] ::
-    Ok: kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})$/
-
-
-{Word@@}  ->  Word[*осуществили] ::
+{Word@@}  ->  Word[*провёл] ::
 >> FAILED:
         quoted(0) 
-
-
-{Word@@@@@}  ->  Word[*осуществили] ::
-    Ok: ~quoted(0) 
-
-
-{Word@@@}  ->  Word[*осуществили] ::
-    Ok: GU(0)=~[A, ADV, V, APRO, ADVPRO, brev, poss]
-
-
-{Word@@@@@+}  ->  {Word@@@@@}[*осуществили] ::
-
-
-{Word@@@+}  ->  {Word@@@}[*осуществили] ::
-
-
-Location  ->  Noun[*ВВС]  {Word@@@@@+}[осуществили] ::
->> FAILED:
-        gnc-agr(0,1) ~quoted(0) 
-
-
-{Word@}  ->  Word[*56] ::
->> FAILED:
-        ~quoted(0) kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\s]{4,})$/
-
-
-Quoted  ->  Word[*56] ::
->> FAILED:
-        quoted(0) 
-
-
-{Word@@@@@}  ->  Word[*56] ::
-    Ok: ~quoted(0) 
-
-
-{Word@@@}  ->  Word[*56] ::
->> FAILED:
-        GU(0)=~[A, ADV, V, APRO, ADVPRO, brev, poss]
-
-
-{Word@@@@@+}  ->  {Word@@@@@+}[*осуществили]  {Word@@@@@}[56] ::
-    Ok: gnc-agr(0,1) 
-
-
-Location  ->  Noun[*ВВС]  {Word@@@@@+}[осуществили 56] ::
->> FAILED:
-        gnc-agr(0,1) ~quoted(0) 
-
-
-{Word@@}  ->  Word[*вылетов] ::
->> FAILED:
-        quoted(0) 
-
-
-{Word@@@@@}  ->  Word[*вылетов] ::
-    Ok: ~quoted(0) 
-
-
-{Word@@@@@+}  ->  {Word@@@@@+}[*осуществили 56]  {Word@@@@@}[вылетов] ::
->> FAILED:
-        gnc-agr(0,1) 
-
-
-{Word@}  ->  Word[*Исламского] ::
-    Ok: ~quoted(0) kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\s]{4,})$/
-
-
-Quoted  ->  Word[*Исламского] ::
->> FAILED:
-        quoted(0) 
-
-
-{Word@+}  ->  {Word@}[*Исламского] ::
-
-
-Generic  ->  {Word@+}[*Исламского] ::
-
-
-OtherNamed  ->  Generic[*Исламского] ::
-
-
-S  ->  OtherNamed[*Исламского] ::
-    Ok: kwset(0)~=[имена стоп_слова ] wfm[0]=/^([^\d\s]+\d+[^\d\s]+)|(\d+[^\d\s]+)|([^\d\s]+\d+)|([^\d\s]{2,})$/
 
 
 ********************************** finished geo.cxx **********************************
 
-{AnyWord%TERM}  ->  AnyWord[*…] ::
+{AnyWord%TERM}  ->  AnyWord[*Встреча] ::
 
 
-A  ->  {AnyWord%TERM}[*…] ::
+A  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*…] ::
+ADV  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*…] ::
+ADVPRO  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*…] ::
+ANUM  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*…] ::
+APRO  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*…] ::
+COM  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*…] ::
+CONJ  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*…] ::
+INTJ  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*…] ::
+NUM  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*…] ::
+PART  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*…] ::
+PR  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*…] ::
+SPRO  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*…] ::
+V  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*…] ::
+S  ->  {AnyWord%TERM}[*Встреча] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-{AnyWord%TERM}  ->  AnyWord[*Иорданские_ВВС] ::
+{AnyWord%TERM}  ->  AnyWord[*завершилась] ::
 
 
-A  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+A  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+ADV  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+ADVPRO  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+ANUM  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+APRO  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+COM  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+CONJ  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+INTJ  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+NUM  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+PART  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+PR  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
+SPRO  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*Иорданские_ВВС] ::
->> FAILED:
-        grams(0)=S kwset(0)~=[имена названия ] 
-
-
-{AnyWord%TERM}  ->  AnyWord[*осуществили] ::
-
-
-A  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*осуществили] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*осуществили] ::
+V  ->  {AnyWord%TERM}[*завершилась] ::
     Ok: grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*осуществили] ::
+S  ->  {AnyWord%TERM}[*завершилась] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  V[*осуществили] ::
+ROOT  ->  V[*завершилась] ::
 
 
-{AnyWord%TERM}  ->  AnyWord[*56] ::
+{AnyWord%TERM}  ->  AnyWord[*победой] ::
 
 
-A  ->  {AnyWord%TERM}[*56] ::
+A  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*56] ::
+ADV  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*56] ::
+ADVPRO  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*56] ::
+ANUM  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*56] ::
+APRO  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*56] ::
+COM  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*56] ::
+CONJ  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*56] ::
+INTJ  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*56] ::
-    Ok: kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*56] ::
->> FAILED:
-        grams(0)=S kwset(0)~=[имена названия ] 
-
-
-ROOT  ->  NUM[*56] ::
-
-
-{AnyWord%TERM}  ->  AnyWord[*вылетов] ::
-
-
-A  ->  {AnyWord%TERM}[*вылетов] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*вылетов] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*вылетов] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*вылетов] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*вылетов] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*вылетов] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*вылетов] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*вылетов] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*вылетов] ::
+NUM  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*вылетов] ::
+PART  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*вылетов] ::
+PR  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*вылетов] ::
+SPRO  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*вылетов] ::
+V  ->  {AnyWord%TERM}[*победой] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*вылетов] ::
+S  ->  {AnyWord%TERM}[*победой] ::
     Ok: grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  S[*вылетов] ::
+ROOT  ->  S[*победой] ::
 
 
-{AnyWord%TERM}  ->  AnyWord[*за] ::
+{AnyWord%TERM}  ->  AnyWord[*сине-гранатовых] ::
 
 
-A  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*за] ::
-    Ok: grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*за] ::
->> FAILED:
-        grams(0)=S kwset(0)~=[имена названия ] 
-
-
-ROOT  ->  PR[*за] ::
-
-
-{AnyWord%TERM}  ->  AnyWord[*последние] ::
-
-
-A  ->  {AnyWord%TERM}[*последние] ::
+A  ->  {AnyWord%TERM}[*сине-гранатовых] ::
     Ok: grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*последние] ::
+ADV  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*последние] ::
+ADVPRO  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*последние] ::
+ANUM  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*последние] ::
+APRO  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*последние] ::
+COM  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*последние] ::
+CONJ  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*последние] ::
+INTJ  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*последние] ::
+NUM  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*последние] ::
+PART  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*последние] ::
+PR  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*последние] ::
+SPRO  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*последние] ::
+V  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*последние] ::
+S  ->  {AnyWord%TERM}[*сине-гранатовых] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  A[*последние] ::
+ROOT  ->  A[*сине-гранатовых] ::
 
 
-{AnyWord%TERM}  ->  AnyWord[*три] ::
+{AnyWord%TERM}  ->  AnyWord[*со] ::
 
 
-A  ->  {AnyWord%TERM}[*три] ::
+A  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*три] ::
+ADV  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*три] ::
+ADVPRO  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*три] ::
+ANUM  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*три] ::
+APRO  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*три] ::
+COM  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*три] ::
+CONJ  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*три] ::
+INTJ  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*три] ::
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-    Ok: grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*три] ::
-    Ok: grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*три] ::
->> FAILED:
-        grams(0)=S kwset(0)~=[имена названия ] 
-
-
-ROOT  ->  NUM[*три] ::
-
-
-ROOT  ->  V[*три] ::
-
-
-{AnyWord%TERM}  ->  AnyWord[*дня] ::
-
-
-A  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*дня] ::
+NUM  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*дня] ::
+PART  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*дня] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
+PR  ->  {AnyWord%TERM}[*со] ::
+    Ok: grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*дня] ::
+SPRO  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*дня] ::
+V  ->  {AnyWord%TERM}[*со] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*дня] ::
+S  ->  {AnyWord%TERM}[*со] ::
+>> FAILED:
+        grams(0)=S kwset(0)~=[имена названия ] 
+
+
+ROOT  ->  PR[*со] ::
+
+
+{AnyWord%TERM}  ->  AnyWord[*счётом] ::
+
+
+A  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*счётом] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*счётом] ::
     Ok: grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  S[*дня] ::
+ROOT  ->  S[*счётом] ::
+
+
+{AnyWord%TERM}  ->  AnyWord[*5:0] ::
+
+
+A  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*5:0] ::
+>> FAILED:
+        grams(0)=S kwset(0)~=[имена названия ] 
 
 
 {AnyWord%TERM}  ->  AnyWord[*,] ::
@@ -2090,458 +2033,308 @@ S  ->  {AnyWord%TERM}[*,] ::
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-{AnyWord%TERM}  ->  AnyWord[*нанося] ::
+{AnyWord%TERM}  ->  AnyWord[*Неймар] ::
 
 
-A  ->  {AnyWord%TERM}[*нанося] ::
+A  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*нанося] ::
+ADV  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*нанося] ::
+ADVPRO  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*нанося] ::
+ANUM  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*нанося] ::
+APRO  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*нанося] ::
+COM  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*нанося] ::
+CONJ  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*нанося] ::
+INTJ  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*нанося] ::
+NUM  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*нанося] ::
+PART  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*нанося] ::
+PR  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*нанося] ::
+SPRO  ->  {AnyWord%TERM}[*Неймар] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*нанося] ::
+V  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=V kwset(0)~=[имена названия ] 
+
+
+S  ->  {AnyWord%TERM}[*Неймар] ::
+>> FAILED:
+        grams(0)=S kwset(0)~=[имена названия ] 
+
+
+{AnyWord%TERM}  ->  AnyWord[*провёл] ::
+
+
+A  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=A kwset(0)~=[имена названия ] 
+
+
+ADV  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=ADV kwset(0)~=[имена названия ] 
+
+
+ADVPRO  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
+
+
+ANUM  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=ANUM kwset(0)~=[имена названия ] 
+
+
+APRO  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=APRO kwset(0)~=[имена названия ] 
+
+
+COM  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=COM kwset(0)~=[имена названия ] 
+
+
+CONJ  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=CONJ kwset(0)~=[имена названия ] 
+
+
+INTJ  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=INTJ kwset(0)~=[имена названия ] 
+
+
+NUM  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
+        grams(0)=NUM kwset(0)~=[имена названия ] 
+
+
+PART  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=PART kwset(0)~=[имена названия ] 
+
+
+PR  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=PR kwset(0)~=[имена названия ] 
+
+
+SPRO  ->  {AnyWord%TERM}[*провёл] ::
+>> FAILED:
+        grams(0)=SPRO kwset(0)~=[имена названия ] 
+
+
+V  ->  {AnyWord%TERM}[*провёл] ::
     Ok: grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*нанося] ::
+S  ->  {AnyWord%TERM}[*провёл] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  V[*нанося] ::
+ROOT  ->  V[*провёл] ::
 
 
-{AnyWord%TERM}  ->  AnyWord[*удары] ::
+{AnyWord%TERM}  ->  AnyWord[*на] ::
 
 
-A  ->  {AnyWord%TERM}[*удары] ::
+A  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*удары] ::
+ADV  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*удары] ::
+ADVPRO  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*удары] ::
+ANUM  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*удары] ::
+APRO  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*удары] ::
+COM  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*удары] ::
+CONJ  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*удары] ::
+INTJ  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*удары] ::
+NUM  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*удары] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
+PART  ->  {AnyWord%TERM}[*на] ::
+    Ok: grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*удары] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*удары] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*удары] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*удары] ::
-    Ok: grams(0)=S kwset(0)~=[имена названия ] 
-
-
-ROOT  ->  S[*удары] ::
-
-
-{AnyWord%TERM}  ->  AnyWord[*по] ::
-
-
-A  ->  {AnyWord%TERM}[*по] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*по] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*по] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*по] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*по] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*по] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*по] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*по] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*по] ::
->> FAILED:
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*по] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*по] ::
+PR  ->  {AnyWord%TERM}[*на] ::
     Ok: grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*по] ::
+SPRO  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*по] ::
+V  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*по] ::
+S  ->  {AnyWord%TERM}[*на] ::
 >> FAILED:
         grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  PR[*по] ::
+ROOT  ->  PART[*на] ::
 
 
-{AnyWord%TERM}  ->  AnyWord[*позициям] ::
+ROOT  ->  PR[*на] ::
 
 
-A  ->  {AnyWord%TERM}[*позициям] ::
+{AnyWord%TERM}  ->  AnyWord[*поле] ::
+
+
+A  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=A kwset(0)~=[имена названия ] 
 
 
-ADV  ->  {AnyWord%TERM}[*позициям] ::
+ADV  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=ADV kwset(0)~=[имена названия ] 
 
 
-ADVPRO  ->  {AnyWord%TERM}[*позициям] ::
+ADVPRO  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=ADVPRO kwset(0)~=[имена названия ] 
 
 
-ANUM  ->  {AnyWord%TERM}[*позициям] ::
+ANUM  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=ANUM kwset(0)~=[имена названия ] 
 
 
-APRO  ->  {AnyWord%TERM}[*позициям] ::
+APRO  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=APRO kwset(0)~=[имена названия ] 
 
 
-COM  ->  {AnyWord%TERM}[*позициям] ::
+COM  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=COM kwset(0)~=[имена названия ] 
 
 
-CONJ  ->  {AnyWord%TERM}[*позициям] ::
+CONJ  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=CONJ kwset(0)~=[имена названия ] 
 
 
-INTJ  ->  {AnyWord%TERM}[*позициям] ::
+INTJ  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=INTJ kwset(0)~=[имена названия ] 
 
 
-NUM  ->  {AnyWord%TERM}[*позициям] ::
+NUM  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
         grams(0)=NUM kwset(0)~=[имена названия ] 
 
 
-PART  ->  {AnyWord%TERM}[*позициям] ::
+PART  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=PART kwset(0)~=[имена названия ] 
 
 
-PR  ->  {AnyWord%TERM}[*позициям] ::
+PR  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=PR kwset(0)~=[имена названия ] 
 
 
-SPRO  ->  {AnyWord%TERM}[*позициям] ::
+SPRO  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=SPRO kwset(0)~=[имена названия ] 
 
 
-V  ->  {AnyWord%TERM}[*позициям] ::
+V  ->  {AnyWord%TERM}[*поле] ::
 >> FAILED:
         grams(0)=V kwset(0)~=[имена названия ] 
 
 
-S  ->  {AnyWord%TERM}[*позициям] ::
+S  ->  {AnyWord%TERM}[*поле] ::
     Ok: grams(0)=S kwset(0)~=[имена названия ] 
 
 
-ROOT  ->  S[*позициям] ::
-
-
-{AnyWord%TERM}  ->  AnyWord[*боевиков] ::
-
-
-A  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*боевиков] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*боевиков] ::
-    Ok: grams(0)=S kwset(0)~=[имена названия ] 
-
-
-ROOT  ->  S[*боевиков] ::
-
-
-{AnyWord%TERM}  ->  AnyWord[*Исламского] ::
-
-
-A  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=A kwset(0)~=[имена названия ] 
-
-
-ADV  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=ADV kwset(0)~=[имена названия ] 
-
-
-ADVPRO  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=ADVPRO kwset(0)~=[имена названия ] 
-
-
-ANUM  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=ANUM kwset(0)~=[имена названия ] 
-
-
-APRO  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=APRO kwset(0)~=[имена названия ] 
-
-
-COM  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=COM kwset(0)~=[имена названия ] 
-
-
-CONJ  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=CONJ kwset(0)~=[имена названия ] 
-
-
-INTJ  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=INTJ kwset(0)~=[имена названия ] 
-
-
-NUM  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        kwset(0)~=[имена названия ] wfm[0]=/^(\d+)$/
-        grams(0)=NUM kwset(0)~=[имена названия ] 
-
-
-PART  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=PART kwset(0)~=[имена названия ] 
-
-
-PR  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=PR kwset(0)~=[имена названия ] 
-
-
-SPRO  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=SPRO kwset(0)~=[имена названия ] 
-
-
-V  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=V kwset(0)~=[имена названия ] 
-
-
-S  ->  {AnyWord%TERM}[*Исламского] ::
->> FAILED:
-        grams(0)=S kwset(0)~=[имена названия ] 
+ROOT  ->  S[*поле] ::
 
 
 ********************************** finished grammemes.cxx **********************************

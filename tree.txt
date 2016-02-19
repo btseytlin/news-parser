@@ -1,357 +1,257 @@
 ===================== stopwords.cxx =====================
 
-coverage: 1, weight: 0.36666666
-ROOT  ->  V[*провела] :: 0.66666666
-    V  ->  AnyWord[*провела] :: 0.66666666
-        AnyWord  ->  провела :: 1
+coverage: 1, weight: 0.33809523
+ROOT  ->  PR[*от] :: 0.66666666
+    PR  ->  AnyWord[*от] :: 0.66666666
+        AnyWord  ->  от :: 1
 
-coverage: 1, weight: 0.35
-ROOT  ->  PR[*за] :: 0.66666666
-    PR  ->  AnyWord[*за] :: 0.66666666
-        AnyWord  ->  за :: 1
-
-coverage: 1, weight: 0.34333333
-ROOT  ->  V[*три] :: 0.66666666
-    V  ->  AnyWord[*три] :: 0.66666666
-        AnyWord  ->  три :: 1
-
-coverage: 1, weight: 0.34
-ROOT  ->  EXACTWORDS[*дня] :: 0.66666666
-    EXACTWORDS  ->  день[*дня] :: 0.66666666
-        день  ->  дня :: 1
-
-coverage: 1, weight: 0.33555555
-ROOT  ->  EXACTWORDS[*против] :: 0.66666666
-    EXACTWORDS  ->  против[*против] :: 0.66666666
-        против  ->  против :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.34333333
-ROOT  ->  NUM[*три] :: 0.66666666
-    NUM  ->  AnyWord[*три] :: 0.66666666
-        AnyWord  ->  три :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33555555
-ROOT  ->  ADV[*против] :: 0.66666666
-    ADV  ->  AnyWord[*против] :: 0.66666666
-        AnyWord  ->  против :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33555555
-ROOT  ->  PR[*против] :: 0.66666666
-    PR  ->  AnyWord[*против] :: 0.66666666
-        AnyWord  ->  против :: 1
+coverage: 1, weight: 0.33443223
+ROOT  ->  PR[*с] :: 0.66666666
+    PR  ->  AnyWord[*с] :: 0.66666666
+        AnyWord  ->  с :: 1
 
 
 
 ===================== geo.cxx =====================
 
 coverage: 1, weight: 0.43333333
-S  ->  OtherNamed[*Иордания] :: 0.66666666
-    OtherNamed  ->  Generic[*Иордания] :: 0.66666666
-        Generic  ->  {Word@+}[*Иордания] :: 0.66666666
-            {Word@+}  ->  {Word@}[*Иордания] :: 0.66666666
-                {Word@}  ->  Word[*Иордания] :: 0.66666666
-                    Word  ->  Иордания :: 1
+S  ->  OtherNamed[*Нападающий] :: 0.66666666
+    OtherNamed  ->  Generic[*Нападающий] :: 0.66666666
+        Generic  ->  Word[*Нападающий] :: 0.66666666
+            Word  ->  Нападающий :: 1
+
+coverage: 1, weight: 0.36666666
+S  ->  OtherNamed[*Барселоны] :: 0.66666666
+    OtherNamed  ->  GenericName[*Барселоны] :: 0.66666666
+        GenericName  ->  Quoted[*Барселоны] :: 0.66666666
+            Quoted  ->  Word[*Барселоны] :: 0.66666666
+                Word  ->  Барселоны :: 1
+
+coverage: 1, weight: 0.35
+S  ->  OtherNamed[*Неймар] :: 0.66666666
+    OtherNamed  ->  Generic[*Неймар] :: 0.66666666
+        Generic  ->  Word[*Неймар] :: 0.66666666
+            Word  ->  Неймар :: 1
+
+coverage: 1, weight: 0.33461538
+S  ->  OtherNamed[*Примеры] :: 0.66666666
+    OtherNamed  ->  Generic[*Примеры] :: 0.66666666
+        Generic  ->  Word[*Примеры] :: 0.66666666
+            Word  ->  Примеры :: 1
+
+coverage: 1, weight: 0.33428571
+S  ->  OtherNamed[*Леванте] :: 0.66666666
+    OtherNamed  ->  GenericName[*Леванте] :: 0.66666666
+        GenericName  ->  Quoted[*Леванте] :: 0.66666666
+            Quoted  ->  Word[*Леванте] :: 0.66666666
+                Word  ->  Леванте :: 1
+
+
+
+===================== grammemes.cxx =====================
+
+coverage: 1, weight: 0.34333333
+ROOT  ->  V[*поделился] :: 0.66666666
+    V  ->  {AnyWord%TERM}[*поделился] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*поделился] :: 0.66666666
+            AnyWord  ->  поделился :: 1
+
+coverage: 1, weight: 0.34
+ROOT  ->  S[*впечатлениями] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*впечатлениями] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*впечатлениями] :: 0.66666666
+            AnyWord  ->  впечатлениями :: 1
+
+coverage: 1, weight: 0.33809523
+ROOT  ->  PR[*от] :: 0.66666666
+    PR  ->  {AnyWord%TERM}[*от] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*от] :: 0.66666666
+            AnyWord  ->  от :: 1
+
+coverage: 1, weight: 0.33690476
+ROOT  ->  A[*домашнего] :: 0.66666666
+    A  ->  {AnyWord%TERM}[*домашнего] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*домашнего] :: 0.66666666
+            AnyWord  ->  домашнего :: 1
+
+coverage: 1, weight: 0.33611111
+ROOT  ->  S[*матча] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*матча] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*матча] :: 0.66666666
+            AnyWord  ->  матча :: 1
+
+coverage: 1, weight: 0.33555555
+ROOT  ->  ANUM[*23-го] :: 0.66666666
+    ANUM  ->  {AnyWord%TERM}[*23-го] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*23-го] :: 0.66666666
+            AnyWord  ->  23-го :: 1
 
 coverage: 1, weight: 0.33515151
-S  ->  OtherNamed[*Исламского] :: 0.66666666
-    OtherNamed  ->  Generic[*Исламского] :: 0.66666666
-        Generic  ->  {Word@+}[*Исламского] :: 0.66666666
-            {Word@+}  ->  {Word@}[*Исламского] :: 0.66666666
-                {Word@}  ->  Word[*Исламского] :: 0.66666666
-                    Word  ->  Исламского :: 1
+ROOT  ->  S[*тура] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*тура] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*тура] :: 0.66666666
+            AnyWord  ->  тура :: 1
+
+coverage: 1, weight: 0.33484848
+ROOT  ->  A[*испанской] :: 0.66666666
+    A  ->  {AnyWord%TERM}[*испанской] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*испанской] :: 0.66666666
+            AnyWord  ->  испанской :: 1
+
+coverage: 1, weight: 0.33443223
+ROOT  ->  PR[*с] :: 0.66666666
+    PR  ->  {AnyWord%TERM}[*с] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*с] :: 0.66666666
+            AnyWord  ->  с :: 1
+
+
+
+==================== multiwords ====================
+
+23-го: TAuxDicArticle, 
+	граммемы, 
+Барселоны: TAuxDicArticle, 
+	названия, 
+Леванте: TAuxDicArticle, 
+	названия, 
+Нападающий: TAuxDicArticle, 
+	названия, 
+Неймар: TAuxDicArticle, 
+	названия, 
+Примеры: TAuxDicArticle, 
+	названия, 
+впечатлениями: TAuxDicArticle, 
+	граммемы, 
+домашнего: TAuxDicArticle, 
+	граммемы, 
+испанской: TAuxDicArticle, 
+	граммемы, 
+матча: TAuxDicArticle, 
+	граммемы, 
+от: TAuxDicArticle, 
+	граммемы, стоп_слова, 
+поделился: TAuxDicArticle, 
+	граммемы, 
+с: TAuxDicArticle, 
+	граммемы, стоп_слова, 
+тура: TAuxDicArticle, 
+	граммемы, 
+
+
+===================== stopwords.cxx =====================
+
+coverage: 1, weight: 0.34
+ROOT  ->  PR[*со] :: 0.66666666
+    PR  ->  AnyWord[*со] :: 0.66666666
+        AnyWord  ->  со :: 1
+
+coverage: 1, weight: 0.33484848
+ROOT  ->  EXACTWORDS[*на] :: 0.66666666
+    EXACTWORDS  ->  на[*на] :: 0.66666666
+        на  ->  на :: 1
+
+DROPPED OCCURRENCE, coverage: 1, weight: 0.33484848
+ROOT  ->  PR[*на] :: 0.66666666
+    PR  ->  AnyWord[*на] :: 0.66666666
+        AnyWord  ->  на :: 1
+
+
+
+===================== geo.cxx =====================
+
+coverage: 1, weight: 0.43333333
+S  ->  OtherNamed[*Встреча] :: 0.66666666
+    OtherNamed  ->  Generic[*Встреча] :: 0.66666666
+        Generic  ->  Word[*Встреча] :: 0.66666666
+            Word  ->  Встреча :: 1
+
+coverage: 1, weight: 0.33555555
+S  ->  OtherNamed[*Неймар] :: 0.66666666
+    OtherNamed  ->  Generic[*Неймар] :: 0.66666666
+        Generic  ->  Word[*Неймар] :: 0.66666666
+            Word  ->  Неймар :: 1
 
 
 
 ===================== grammemes.cxx =====================
 
 coverage: 1, weight: 0.36666666
-ROOT  ->  V[*провела] :: 0.66666666
-    V  ->  {AnyWord%TERM}[*провела] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*провела] :: 0.66666666
-            AnyWord  ->  провела :: 1
+ROOT  ->  V[*завершилась] :: 0.66666666
+    V  ->  {AnyWord%TERM}[*завершилась] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*завершилась] :: 0.66666666
+            AnyWord  ->  завершилась :: 1
 
 coverage: 1, weight: 0.35
-ROOT  ->  PR[*за] :: 0.66666666
-    PR  ->  {AnyWord%TERM}[*за] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*за] :: 0.66666666
-            AnyWord  ->  за :: 1
+ROOT  ->  S[*победой] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*победой] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*победой] :: 0.66666666
+            AnyWord  ->  победой :: 1
 
 coverage: 1, weight: 0.34333333
-ROOT  ->  V[*три] :: 0.66666666
-    V  ->  {AnyWord%TERM}[*три] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*три] :: 0.66666666
-            AnyWord  ->  три :: 1
+ROOT  ->  A[*сине-гранатовых] :: 0.66666666
+    A  ->  {AnyWord%TERM}[*сине-гранатовых] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*сине-гранатовых] :: 0.66666666
+            AnyWord  ->  сине-гранатовых :: 1
 
 coverage: 1, weight: 0.34
-ROOT  ->  S[*дня] :: 0.66666666
-    S  ->  {AnyWord%TERM}[*дня] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*дня] :: 0.66666666
-            AnyWord  ->  дня :: 1
+ROOT  ->  PR[*со] :: 0.66666666
+    PR  ->  {AnyWord%TERM}[*со] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*со] :: 0.66666666
+            AnyWord  ->  со :: 1
 
 coverage: 1, weight: 0.33809523
-ROOT  ->  NUM[*56] :: 0.66666666
-    NUM  ->  {AnyWord%TERM}[*56] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*56] :: 0.66666666
-            AnyWord  ->  56 :: 1
-
-coverage: 1, weight: 0.33690476
-ROOT  ->  A[*воздушных] :: 0.66666666
-    A  ->  {AnyWord%TERM}[*воздушных] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*воздушных] :: 0.66666666
-            AnyWord  ->  воздушных :: 1
-
-coverage: 1, weight: 0.33611111
-ROOT  ->  S[*рейдов] :: 0.66666666
-    S  ->  {AnyWord%TERM}[*рейдов] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*рейдов] :: 0.66666666
-            AnyWord  ->  рейдов :: 1
-
-coverage: 1, weight: 0.33555555
-ROOT  ->  PR[*против] :: 0.66666666
-    PR  ->  {AnyWord%TERM}[*против] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*против] :: 0.66666666
-            AnyWord  ->  против :: 1
-
-coverage: 1, weight: 0.33484848
-ROOT  ->  S[*государства] :: 0.66666666
-    S  ->  {AnyWord%TERM}[*государства] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*государства] :: 0.66666666
-            AnyWord  ->  государства :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.34333333
-ROOT  ->  NUM[*три] :: 0.66666666
-    NUM  ->  {AnyWord%TERM}[*три] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*три] :: 0.66666666
-            AnyWord  ->  три :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33611111
-ROOT  ->  A[*рейдов] :: 0.66666666
-    A  ->  {AnyWord%TERM}[*рейдов] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*рейдов] :: 0.66666666
-            AnyWord  ->  рейдов :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33555555
-ROOT  ->  ADV[*против] :: 0.66666666
-    ADV  ->  {AnyWord%TERM}[*против] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*против] :: 0.66666666
-            AnyWord  ->  против :: 1
-
-
-
-==================== multiwords ====================
-
-56: TAuxDicArticle, 
-	граммемы, 
-Иордания: TAuxDicArticle, 
-	названия, 
-Исламского: TAuxDicArticle, 
-	названия, 
-воздушных: TAuxDicArticle, 
-	граммемы, 
-государства: TAuxDicArticle, 
-	граммемы, 
-дня: TAuxDicArticle, 
-	граммемы, стоп_слова, 
-за: TAuxDicArticle, 
-	граммемы, стоп_слова, 
-провела: TAuxDicArticle, 
-	граммемы, стоп_слова, 
-против: TAuxDicArticle, 
-	граммемы, стоп_слова, 
-рейдов: TAuxDicArticle, 
-	граммемы, 
-три: TAuxDicArticle, 
-	граммемы, стоп_слова, 
-
-
-===================== stopwords.cxx =====================
-
-coverage: 1, weight: 0.34333333
-ROOT  ->  V[*осуществили] :: 0.66666666
-    V  ->  AnyWord[*осуществили] :: 0.66666666
-        AnyWord  ->  осуществили :: 1
-
-coverage: 1, weight: 0.33690476
-ROOT  ->  PR[*за] :: 0.66666666
-    PR  ->  AnyWord[*за] :: 0.66666666
-        AnyWord  ->  за :: 1
-
-coverage: 1, weight: 0.33555555
-ROOT  ->  V[*три] :: 0.66666666
-    V  ->  AnyWord[*три] :: 0.66666666
-        AnyWord  ->  три :: 1
+ROOT  ->  S[*счётом] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*счётом] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*счётом] :: 0.66666666
+            AnyWord  ->  счётом :: 1
 
 coverage: 1, weight: 0.33515151
-ROOT  ->  EXACTWORDS[*дня] :: 0.66666666
-    EXACTWORDS  ->  день[*дня] :: 0.66666666
-        день  ->  дня :: 1
-
-coverage: 1, weight: 0.33461538
-ROOT  ->  V[*нанося] :: 0.66666666
-    V  ->  AnyWord[*нанося] :: 0.66666666
-        AnyWord  ->  нанося :: 1
-
-coverage: 1, weight: 0.33428571
-ROOT  ->  PR[*по] :: 0.66666666
-    PR  ->  AnyWord[*по] :: 0.66666666
-        AnyWord  ->  по :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33555555
-ROOT  ->  NUM[*три] :: 0.66666666
-    NUM  ->  AnyWord[*три] :: 0.66666666
-        AnyWord  ->  три :: 1
-
-
-
-===================== geo.cxx =====================
-
-coverage: 2, weight: 0.38888888
-S  ->  OtherNamed[*Иорданские ВВС] :: 0.66666666
-    OtherNamed  ->  Location[*Иорданские ВВС] :: 0.66666666
-        Location  ->  Noun[*Иорданские]  {Word@@@@+}[ВВС] :: 0.66666666
-        |   
-        |__ Noun  ->  Иорданские :: 1
-        |   
-        |__ {Word@@@@+}  ->  {Word@@@@}[*ВВС] :: 0.66666666
-                {Word@@@@}  ->  Word[*ВВС] :: 0.66666666
-                    Word  ->  ВВС :: 1
-
-coverage: 1, weight: 0.33398692
-S  ->  OtherNamed[*Исламского] :: 0.66666666
-    OtherNamed  ->  Generic[*Исламского] :: 0.66666666
-        Generic  ->  {Word@+}[*Исламского] :: 0.66666666
-            {Word@+}  ->  {Word@}[*Исламского] :: 0.66666666
-                {Word@}  ->  Word[*Исламского] :: 0.66666666
-                    Word  ->  Исламского :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.36666666
-S  ->  OtherNamed[*Иорданские] :: 0.66666666
-    OtherNamed  ->  Generic[*Иорданские] :: 0.66666666
-        Generic  ->  {Word@+}[*Иорданские] :: 0.66666666
-            {Word@+}  ->  {Word@}[*Иорданские] :: 0.66666666
-                {Word@}  ->  Word[*Иорданские] :: 0.66666666
-                    Word  ->  Иорданские :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.35
-S  ->  OtherNamed[*ВВС] :: 0.66666666
-    OtherNamed  ->  GenericName[*ВВС] :: 0.66666666
-        GenericName  ->  Abbr[*ВВС] :: 0.66666666
-            Abbr  ->  AnyWord[*ВВС] :: 0.66666666
-                AnyWord  ->  ВВС :: 1
-
-
-
-===================== grammemes.cxx =====================
-
-coverage: 1, weight: 0.35
-ROOT  ->  V[*осуществили] :: 0.66666666
-    V  ->  {AnyWord%TERM}[*осуществили] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*осуществили] :: 0.66666666
-            AnyWord  ->  осуществили :: 1
-
-coverage: 1, weight: 0.34333333
-ROOT  ->  NUM[*56] :: 0.66666666
-    NUM  ->  {AnyWord%TERM}[*56] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*56] :: 0.66666666
-            AnyWord  ->  56 :: 1
-
-coverage: 1, weight: 0.34
-ROOT  ->  S[*вылетов] :: 0.66666666
-    S  ->  {AnyWord%TERM}[*вылетов] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*вылетов] :: 0.66666666
-            AnyWord  ->  вылетов :: 1
-
-coverage: 1, weight: 0.33809523
-ROOT  ->  PR[*за] :: 0.66666666
-    PR  ->  {AnyWord%TERM}[*за] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*за] :: 0.66666666
-            AnyWord  ->  за :: 1
-
-coverage: 1, weight: 0.33690476
-ROOT  ->  A[*последние] :: 0.66666666
-    A  ->  {AnyWord%TERM}[*последние] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*последние] :: 0.66666666
-            AnyWord  ->  последние :: 1
-
-coverage: 1, weight: 0.33611111
-ROOT  ->  V[*три] :: 0.66666666
-    V  ->  {AnyWord%TERM}[*три] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*три] :: 0.66666666
-            AnyWord  ->  три :: 1
-
-coverage: 1, weight: 0.33555555
-ROOT  ->  S[*дня] :: 0.66666666
-    S  ->  {AnyWord%TERM}[*дня] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*дня] :: 0.66666666
-            AnyWord  ->  дня :: 1
+ROOT  ->  V[*провёл] :: 0.66666666
+    V  ->  {AnyWord%TERM}[*провёл] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*провёл] :: 0.66666666
+            AnyWord  ->  провёл :: 1
 
 coverage: 1, weight: 0.33484848
-ROOT  ->  V[*нанося] :: 0.66666666
-    V  ->  {AnyWord%TERM}[*нанося] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*нанося] :: 0.66666666
-            AnyWord  ->  нанося :: 1
+ROOT  ->  PR[*на] :: 0.66666666
+    PR  ->  {AnyWord%TERM}[*на] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*на] :: 0.66666666
+            AnyWord  ->  на :: 1
 
 coverage: 1, weight: 0.33461538
-ROOT  ->  S[*удары] :: 0.66666666
-    S  ->  {AnyWord%TERM}[*удары] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*удары] :: 0.66666666
-            AnyWord  ->  удары :: 1
+ROOT  ->  S[*поле] :: 0.66666666
+    S  ->  {AnyWord%TERM}[*поле] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*поле] :: 0.66666666
+            AnyWord  ->  поле :: 1
 
-coverage: 1, weight: 0.33443223
-ROOT  ->  PR[*по] :: 0.66666666
-    PR  ->  {AnyWord%TERM}[*по] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*по] :: 0.66666666
-            AnyWord  ->  по :: 1
-
-coverage: 1, weight: 0.33428571
-ROOT  ->  S[*позициям] :: 0.66666666
-    S  ->  {AnyWord%TERM}[*позициям] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*позициям] :: 0.66666666
-            AnyWord  ->  позициям :: 1
-
-coverage: 1, weight: 0.33416666
-ROOT  ->  S[*боевиков] :: 0.66666666
-    S  ->  {AnyWord%TERM}[*боевиков] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*боевиков] :: 0.66666666
-            AnyWord  ->  боевиков :: 1
-
-DROPPED OCCURRENCE, coverage: 1, weight: 0.33611111
-ROOT  ->  NUM[*три] :: 0.66666666
-    NUM  ->  {AnyWord%TERM}[*три] :: 0.66666666
-        {AnyWord%TERM}  ->  AnyWord[*три] :: 0.66666666
-            AnyWord  ->  три :: 1
+DROPPED OCCURRENCE, coverage: 1, weight: 0.33484848
+ROOT  ->  PART[*на] :: 0.66666666
+    PART  ->  {AnyWord%TERM}[*на] :: 0.66666666
+        {AnyWord%TERM}  ->  AnyWord[*на] :: 0.66666666
+            AnyWord  ->  на :: 1
 
 
 
 ==================== multiwords ====================
 
-56: TAuxDicArticle, 
-	граммемы, 
-Иорданские_ВВС: TAuxDicArticle, 
+Встреча: TAuxDicArticle, 
 	названия, 
-Исламского: TAuxDicArticle, 
+Неймар: TAuxDicArticle, 
 	названия, 
-боевиков: TAuxDicArticle, 
+завершилась: TAuxDicArticle, 
 	граммемы, 
-вылетов: TAuxDicArticle, 
+на: TAuxDicArticle, 
+	граммемы, стоп_слова, 
+победой: TAuxDicArticle, 
 	граммемы, 
-дня: TAuxDicArticle, 
-	граммемы, стоп_слова, 
-за: TAuxDicArticle, 
-	граммемы, стоп_слова, 
-нанося: TAuxDicArticle, 
-	граммемы, стоп_слова, 
-осуществили: TAuxDicArticle, 
-	граммемы, стоп_слова, 
-по: TAuxDicArticle, 
-	граммемы, стоп_слова, 
-позициям: TAuxDicArticle, 
+поле: TAuxDicArticle, 
 	граммемы, 
-последние: TAuxDicArticle, 
+провёл: TAuxDicArticle, 
 	граммемы, 
-три: TAuxDicArticle, 
+сине-гранатовых: TAuxDicArticle, 
+	граммемы, 
+со: TAuxDicArticle, 
 	граммемы, стоп_слова, 
-удары: TAuxDicArticle, 
+счётом: TAuxDicArticle, 
 	граммемы, 
 
 

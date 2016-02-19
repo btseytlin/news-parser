@@ -93,7 +93,7 @@ class NewsMessage():
 #     return response
 
 def clean_up(text):
-    text = text.strip("\"\t\n").strip().replace("`", "\"").split('.')
+    text = text.strip("\"\t\n").strip().split('.')
     #pdebug(str(text))
     clear_text = []
     #prev_ended_with_1_letter = None
