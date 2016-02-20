@@ -8,6 +8,7 @@ from subprocess import Popen, PIPE, STDOUT, TimeoutExpired
 
 _debug = False
 stderr_set = False
+partial_match_threshold = 0.65
 def pdebug(*args):
     """Write debug info to debug.txt if debug mode is on.
 
@@ -31,6 +32,11 @@ def fuzzy_match(word1, word2):
     t2 = [SORTED_STRING_INTERSECTION] + [SORTED_Difference2] (For the above example its '')
     All components are sorted alphabetically so that word order doesn't matter.
     This algorithm makes it so the score is bigger the more common words strings have AND the more similar the other words are.
+
+    Args:
+        word1, word2: strings to compare.
+    Returns:
+        Boolean result of comparison.
     """
 
     word1 = set(word1.split())
@@ -54,12 +60,17 @@ def fuzzy_match(word1, word2):
         SequenceMatcher(None, t1, t2).quick_ratio(),
     ]
 
-    if max(scores) > 0.65:
+    global partial_match_threshold
+    if max(scores) > partial_match_threshold:
         return True
     return False
 
 def post_process_tomita_facts(facts):
-    """Remove duplicates and lowercase all facts"""
+    """Remove duplicates and lowercase all facts
+
+    Args:
+        facts: dictionary of facts.
+    """
     for key in facts.keys():
         facts[key] = list(set([ x.lower() for x in facts[key] ]))
     return facts
@@ -235,7 +246,12 @@ def compare(news):
     return comparisons
 
 def output(comparisons, fname):
-    """Write results to output file."""
+    """Write results to output file.
+
+    Args:
+        comparisons: List of Comparison objects.
+        fname: Output filename.
+    """
     with open(fname, 'w', encoding='utf-8') as f:
         f.write("N;ComparedIDs;Name;A;ADV;ADVPRO;ANUM;APRO;COM;CONJ;INTJ;NUM;PART;PR;SPRO;V;S;Duplicate;\n")#Table header
         for i in range(len(comparisons)):
@@ -246,9 +262,9 @@ def main(argv):
     input_fname = "input.csv"
     output_fname = "output.csv"
     try:                                
-        opts, args = getopt.getopt(argv, "di:o:", ["input=", "output="])
+        opts, args = getopt.getopt(argv, "di:o:p:", ["input=", "output=", "partial-match-threshold="])
     except getopt.GetoptError:
-        print('news_parser.py -i <input_file> -o <output_file>')
+        print('news_parser.py [-i <input_file>] [-o <output_file>] [-p <float>]')
         sys.exit(2)   
 
     for opt, arg in opts:                                           
@@ -256,6 +272,9 @@ def main(argv):
             input_fname = arg   
         elif opt in ("-o", "--output"):
             output_fname = arg
+        elif opt in ("-p", "--partial-match-threshold"):
+            global partial_match_threshold
+            partial_match_threshold = max(0.5, min(float(arg), 1))
         elif opt == '-d':
             global _debug
             _debug = True
