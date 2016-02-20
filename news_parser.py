@@ -55,9 +55,9 @@ def fuzzy_match(word1, word2):
     t2 = " ".join(intersection) +' '+  " ".join(difference2)
 
     scores = [ 
-        SequenceMatcher(None, t0, t1).quick_ratio(),
-        SequenceMatcher(None, t0, t2).quick_ratio(),
-        SequenceMatcher(None, t1, t2).quick_ratio(),
+        SequenceMatcher(None, t0, t1).ratio(),
+        SequenceMatcher(None, t0, t2).ratio(),
+        SequenceMatcher(None, t1, t2).ratio(),
     ]
 
     global partial_match_threshold
@@ -181,9 +181,6 @@ def preprocess(text):
         clear_text.append(t)
 
     text = '. '.join(clear_text)
-    return process_spelling(text)
-
-def process_spelling(text):
     return text
 
 def get_grammemes(text):
