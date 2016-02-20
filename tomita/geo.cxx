@@ -7,9 +7,10 @@ Abbr -> AnyWord<gram="abbr">;
 Geog -> Geo;
 CamelCase -> AnyWord<h-reg2>;
 
-Event -> Noun<h-reg1, gnc-agr[1], rt> Adj<l-reg, gnc-agr[1]> Word<l-reg, gram="род" ,gnc-agr[1]>; // Турнир четырех наций
+Event -> Noun<h-reg1, gnc-agr[1], rt> Adj<l-reg, gnc-agr[1]> Word<l-reg, gnc-agr[1]>; // Турнир четырех наций
 Event -> Adj<h-reg1, gnc-agr[1]> Noun<gnc-agr[1], rt> Word<gram="~V,~ADV,~A,~ADVPRO,~APRO,~brev,~poss",gnc-agr[1]>* Noun<gnc-agr[1]>; //Мюнхенской конференции по безопасности / Донецкая область / Хорошая конференция удалых молодцов 
 Event -> Adj<h-reg1, gnc-agr[1]> Noun<gnc-agr[1], rt>;
+Event -> Adj<h-reg1, gnc-agr[1]> Noun<h-reg1, gnc-agr[1], rt>;
 GenericName -> Quoted | Abbr | CamelCase;
 
 Location ->  Noun<~quoted, h-reg1, nc-agr[1], rt> Word<~quoted, h-reg1, nc-agr[1]>+ | Noun<~quoted, h-reg1, gnc-agr[1]> Word<gram="~V",~quoted, l-reg, gnc-agr[1]>+;
