@@ -4,14 +4,17 @@ import os
 import json
 import re
 from difflib import SequenceMatcher
-#import urllib2
 from subprocess import Popen, PIPE, STDOUT, TimeoutExpired
 
 _debug = False
 stderr_set = False
 def pdebug(*args):
-    if _debug:
+    """Write debug info to debug.txt if debug mode is on.
 
+    Args:
+        *args: sequence of strings to output.
+    """
+    if _debug:
         global stderr_set
         if not stderr_set:
             sys.stderr = open(os.path.dirname(os.path.abspath(__file__))+'\\debug.txt', 'w',encoding="utf-8")
@@ -20,20 +23,18 @@ def pdebug(*args):
         print(" ".join(args),file=sys.stderr)
 
 def fuzzy_match(word1, word2):
-    if len(word1) < len(word2):
-        minlen_word = word1
-        maxlen_word = word2
-    else:
-        maxlen_word = word1
-        minlen_word = word2
+    """Check if two strings are mostly(fuzzy) similar ('Эльвира Набиуллина' and 'Набиуллина').
+    
+    Three pairs are created for comparison
+    t0 = [SORTED_STRING_INTERSECTION] (For the above example its 'Набиуллина')
+    t1 = [SORTED_STRING_INTERSECTION] + [SORTED_Difference1] (For the above example its 'Эльвира')
+    t2 = [SORTED_STRING_INTERSECTION] + [SORTED_Difference2] (For the above example its '')
+    All components are sorted alphabetically so that word order doesn't matter.
+    This algorithm makes it so the score is bigger the more common words strings have AND the more similar the other words are.
+    """
 
-    word1 = word1.split()
-    word1.sort()
-    word2 = word2.split()
-    word2.sort()
-
-    word1 = set(word1)
-    word2 = set(word2)
+    word1 = set(word1.split())
+    word2 = set(word2.split())
 
     intersection = word1.intersection(word2)
     difference1 = list(word1 - intersection)
@@ -44,13 +45,13 @@ def fuzzy_match(word1, word2):
     intersection.sort()
 
     t0 = " ".join(intersection)
-    t1 = " ".join(intersection) + " ".join(difference1)
-    t2 = " ".join(intersection) +  " ".join(difference2)
+    t1 = " ".join(intersection) +' '+ " ".join(difference1)
+    t2 = " ".join(intersection) +' '+  " ".join(difference2)
 
     scores = [ 
-        SequenceMatcher(None, t0, t1).ratio(),
-        SequenceMatcher(None, t0, t2).ratio(),
-        SequenceMatcher(None, t1, t2).ratio(),
+        SequenceMatcher(None, t0, t1).quick_ratio(),
+        SequenceMatcher(None, t0, t2).quick_ratio(),
+        SequenceMatcher(None, t1, t2).quick_ratio(),
     ]
 
     if max(scores) > 0.65:
@@ -58,11 +59,20 @@ def fuzzy_match(word1, word2):
     return False
 
 def post_process_tomita_facts(facts):
+    """Remove duplicates and lowercase all facts"""
     for key in facts.keys():
         facts[key] = list(set([ x.lower() for x in facts[key] ]))
     return facts
 
 def parse_tomita_output(text):
+    """Parse tomita text output to extract fact types and facts.
+
+    Args:
+        text: String to parse.
+
+    Returns:
+        Dictionary of format {'fact_type': [fact1, fact2 ... factn] }
+    """
     facts = {}
     clearing_text = str(text)
     while clearing_text.find("{") != -1:
@@ -83,6 +93,11 @@ def parse_tomita_output(text):
 
 
 def get_overlaps(facts1, facts2):
+    """Find how many exactly or fuzzy same facts of each type exist in fact1 and fact2.
+
+    Args:
+        facts1, facts2: dictionaries of facts of format {'fact_type':[fact1, fact2 ... factn]}
+    """
     overlaps = {}
     pdebug("Seeking overlaps between\n %s\n and\n %s:"%(str(facts1), str(facts2)))
     for key in facts1.keys():
@@ -104,6 +119,7 @@ def get_overlaps(facts1, facts2):
     return overlaps
 
 class Comparison():
+    """A structure to hold results of seeking overlaps between two NewsMessage objects facts and ease outputting."""
     def __init__(self, message1, message2):
         self.message1 = message1
         self.message2 = message2
@@ -123,6 +139,7 @@ class Comparison():
 
 
 class NewsMessage():
+    """A structure to hold information extracted from input and grammemes after parsing."""
     def __init__(self, id, title, text, cluster, date, source):
         self.id = id
         self.title = title
@@ -132,9 +149,6 @@ class NewsMessage():
         self.grammemes = []
         self.cluster = cluster
 
-    def lineout(self):
-        pass
-
     def __str__(self):
         return self.__repr__()
 
@@ -142,23 +156,17 @@ class NewsMessage():
         return "%s;%s;%s;%s;%s"%(self.id, self.title, self.text, self.cluster, "["+",".join(self.grammemes)+"]")
 
 def preprocess(text):
+    """Strip useless whitespaces and trailing \" from text.
+
+    Args:
+        text: String to preprocess.
+    """
     text = text.strip("\"\t\n").strip().split('.')
-    #pdebug(str(text))
     clear_text = []
-    #prev_ended_with_1_letter = None
     for t in text:
         if not t:
             continue 
         t = t.strip("\"\t\n").strip()
-        #first_word = t[:t.find(' ')].strip()
-        #pdebug('rsplit',str(t.rsplit(None, 1)))
-        #last_word = t.rsplit(None, 1)[-1].strip()
-        #pdebug('f',first_word,'l', last_word)
-        #if prev_ended_with_1_letter:
-            #pdebug('ended with 1 letter')
-        #if first_word.upper() != first_word and not prev_ended_with_1_letter:
-        #    t = t.replace(first_word, first_word.lower(), 1)
-        #prev_ended_with_1_letter = len(last_word) == 1
         clear_text.append(t)
 
     text = '. '.join(clear_text)
@@ -168,7 +176,12 @@ def process_spelling(text):
     return text
 
 def get_grammemes(text):
-    #write text to stdin
+    """Send text to tomita parser, parse output to extract facts.
+
+    Args:
+        text: String to pass to tomita for parsing
+    """
+
     pdebug("Sending to tomita:\n----\n", text,"\n----")
     try:
         p = Popen(['tomita/tomitaparser.exe', "tomita/config.proto"], stdout=PIPE, stdin=PIPE, stderr=PIPE)
@@ -185,6 +198,11 @@ def get_grammemes(text):
     return facts 
 
 def read_input(fname):
+    """Read the input file line by line.
+
+    Args:
+        fname: filename to read
+    """
     news_objects = []
     with open(fname, "r", encoding="utf-8-sig") as f:
         for line in f:
@@ -198,6 +216,14 @@ def read_input(fname):
     return news_objects
 
 def compare(news):
+    """Compare all news objects, get their overlapping facts.
+
+    Args:
+        news: List of NewsMessage objects.
+    Returns:
+        List of Comparison objects.
+    """
+
     comparisons = []
     pdebug("Amount of news",str(len(news)))
     for i in range(len(news)):
@@ -209,6 +235,7 @@ def compare(news):
     return comparisons
 
 def output(comparisons, fname):
+    """Write results to output file."""
     with open(fname, 'w', encoding='utf-8') as f:
         f.write("N;ComparedIDs;Name;A;ADV;ADVPRO;ANUM;APRO;COM;CONJ;INTJ;NUM;PART;PR;SPRO;V;S;Duplicate;\n")#Table header
         for i in range(len(comparisons)):
