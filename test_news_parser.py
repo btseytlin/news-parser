@@ -1,4 +1,4 @@
-from news_parser import fuzzy_match, post_process_tomita_facts, parse_tomita_output, get_overlaps, Comparison, NewsMessage, preprocess, pdebug
+from news_parser import fuzzy_match, post_process_tomita_facts, parse_tomita_output, get_overlaps, Comparison, NewsMessage, preprocess, pdebug, compile_huge_strs, decompile_huge_strs
 
 import unittest 
 
@@ -40,10 +40,44 @@ class TestFuzzyMatch(unittest.TestCase):
         words = ['Эльвира Набиуллина', 'Набиуллина']
         self.assertEqual(fuzzy_match(words[0],words[1]), True)
 
+class TextChunkingAndPatritioning(unittest.TestCase):
+    def test_compile_huge_strs(self):
+        terminator =  "[[[___]]]"
+        terminator_for_parsing = "[[[___]]]"
+        texts = [
+        "7 февраля Дом-музей А. Л. Чижевского",
+        "169,90руб -6%  11% Четвертина",
+        "И вот сейчас при поддержке Г. Г. Фоминой"
+        ]
+        huge_strs = compile_huge_strs(texts, 2)
+
+        should_be = ["7 февраля Дом-музей А. Л. Чижевского"+terminator+"169,90руб -6%  11% Четвертина", "И вот сейчас при поддержке Г. Г. Фоминой"]
+        #print(huge_strs)
+        self.assertEqual(huge_strs, should_be)
+
+    def test_decompile_huge_strs(self):
+        terminator =  "[[[___]]]"
+        terminator_for_parsing = "[[[___]]]"
+        output_chunks = [
+            "7 февраля Дом-музей А. Л. Чижевского"+terminator+"169,90руб -6%  11% Четвертина",
+            "И вот сейчас при поддержке Г. Г. Фоминой"
+        ]
+        source_texts = decompile_huge_strs(output_chunks)
+
+        should_be =  [
+            "7 февраля Дом-музей А. Л. Чижевского",
+            "169,90руб -6%  11% Четвертина",
+            "И вот сейчас при поддержке Г. Г. Фоминой"
+        ]
+        self.assertEqual(source_texts, should_be)
+
+
+
+
 class TextProcessing(unittest.TestCase):
     def test_preprocess(self):
-        text = "\"      Курс рубля близок к фундаментальным уровням, риска для финансовой стабильности нет, считает глава российского Центробанка Эльвира Набиуллина \"     "
-        clear = "Курс рубля близок к фундаментальным уровням, риска для финансовой стабильности нет, считает глава российского Центробанка Эльвира Набиуллина"
+        text = "\"      ...7 февраля Дом-музей А. Л. Чижевского приглашает всех калужан и гостей города на День открытых дверей. Вход в музей свободный. \"     "
+        clear = "7 февраля Дом-музей А. Л. Чижевского приглашает всех калужан и гостей города на День открытых дверей. Вход в музей свободный."
         self.assertEqual(preprocess(text), clear)
 
     def test_parse_tomita_output(self):
@@ -210,7 +244,7 @@ class TextProcessing(unittest.TestCase):
 
         overlaps = get_overlaps(facts1, facts2)
 
-        self.assertEqual(overlaps, {'ADV': 0, 'V': 0, 'EntityName': 2, 'S': 3, 'A': 1, 'PR': 1})
+        self.assertEqual(overlaps, {'ADV': 0, 'V': 0, 'EntityName': 1, 'S': 3, 'A': 1, 'PR': 1})
         
 if __name__ == '__main__':
     unittest.main()
