@@ -29,6 +29,18 @@ def pdebug(*args):
 
         print(" ".join(args),file=sys.stderr)
 
+def combinations(n, m):
+    """ C(n, m)
+
+    Returns:
+           m!
+        --------
+        n!(m-n)!
+
+    """
+    import math
+    return math.factorial(m)/(math.factorial(n) * (math.factorial(m-n)) )
+
 def fuzzy_match(word1, word2):
     """Check if two strings are mostly(fuzzy) similar ('Эльвира Набиуллина' and 'Набиуллина').
     
@@ -275,12 +287,15 @@ def extract_facts(news):
         List of NewsMessage objects.
     """
     texts = [news_line.text for news_line in news]
-    print("Patritioning texts into chunks with %d texts in each"%(min(max(int(len(texts))/20, 50), 150)))
-    huge_strs = compile_huge_strs(texts, int(len(texts)/100))
+    print("Compiling texts into chunks with %d texts in each"%(min(max(int(len(texts))/20, 50), 150)))
+    huge_strs = compile_huge_strs(texts, min(max(int(len(texts))/20, 50), 150))
     #Pass huge str to tomita
     facts = []
     #pdebug("Sending huge str to tomita")
-    for huge_str in huge_strs:
+    total_huge_strs = len(huge_strs)
+    for i in range(total_huge_strs):
+        huge_str = huge_strs[i]
+        print("Processing chunk %d/%d"%(i, total_huge_strs) )
         try:
             p = Popen(['tomita/tomitaparser.exe', "tomita/config.proto"], stdout=PIPE, stdin=PIPE, stderr=PIPE)
             stdout_data, stderr_data = p.communicate(input=bytes(huge_str, 'UTF-8'), timeout=360)
@@ -321,11 +336,14 @@ def compare(news):
 
     comparisons = []
     pdebug("Amount of news",str(len(news)))
+    pdebug("Amount of comparisons",str(combinations(2, len(news))))
+    print("Amount of news",str(len(news)), ", amount of comparisons",str(combinations(2, len(news))))
     percentage = int(len(news)*0.025)
-    for i in range(len(news)):
+    total_news = len(news)
+    for i in range(total_news):
         if i % percentage == 0:
-            print("%d/%d"%(i, len(news)))
-        for j in range(i+1, len(news)):
+            print("%d/%d"%(i, total_news))
+        for j in range(i+1, total_news):
             pdebug("Comparing news %d and %d"%(i, j))
             comparison = Comparison(news[i], news[j])
             comparison.overlaps = get_overlaps(news[i].grammemes, news[j].grammemes)
