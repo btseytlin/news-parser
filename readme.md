@@ -7,7 +7,7 @@ Instructions to launch:
 	python news_parser.py [-d] [-i <input_file>] [-o <output_file>] [-p <float>]
 
 	-d - Enable debug output to debug.txt, default = False
-	-i - Relative input file path, default = "output.csv"
+	-i - Relative input file path, default = "input.csv"
 		NOTE: FILE MUST BE ENCODED WITH UTF-8
 	-o - Relative output file path, default = "output.csv"
 	-e - Enable fuzzy name matching, inputting anything except "true" and "1" will evaluate to "False", default = False
