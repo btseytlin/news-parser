@@ -1,4 +1,4 @@
-from news_parser import fuzzy_match, post_process_tomita_facts, parse_tomita_output, get_overlaps, Comparison, NewsMessage, preprocess, pdebug, compile_huge_strs, decompile_huge_strs
+from news_parser import fuzzy_levenshtein, post_process_tomita_facts, parse_tomita_output, get_overlaps, Comparison, NewsMessage, preprocess, pdebug, compile_huge_strs, decompile_huge_strs
 
 import unittest 
 
@@ -10,35 +10,35 @@ partial_match_threshold = 0.65
 class TestFuzzyMatch(unittest.TestCase):
     def test_exact(self):
         words = ['Эльвира Набиуллина', 'Эльвира Набиуллина']
-        self.assertEqual(fuzzy_match(words[0],words[1]), True)
+        self.assertEqual(fuzzy_levenshtein(words[0],words[1]), True)
 
     def test_different_form(self):
         words = ['Эльвира Набиуллина', 'Эльвирой Набиуллининой']
-        self.assertEqual(fuzzy_match(words[0],words[1]), True)
+        self.assertEqual(fuzzy_levenshtein(words[0],words[1]), True)
 
     def test_different(self):
         words = ['Эльвира Набиуллина', 'Банк России']
-        self.assertEqual(fuzzy_match(words[0],words[1]), False)
+        self.assertEqual(fuzzy_levenshtein(words[0],words[1]), False)
 
     def test_misspel(self):
         words = ['Эльвира Набиуллина', 'Эльвриа Набилулина']
-        self.assertEqual(fuzzy_match(words[0],words[1]), True)
+        self.assertEqual(fuzzy_levenshtein(words[0],words[1]), True)
 
     def test_exact_letters_moved(self):
         words = ['Эльвира Набиуллина', 'Нал лувниьаабЭриил']
-        self.assertEqual(fuzzy_match(words[0],words[1]), False)
+        self.assertEqual(fuzzy_levenshtein(words[0],words[1]), False)
 
     def test_different_order(self):
         words = ['Эльвира Набиуллина', 'Набиуллина Эльвира']
-        self.assertEqual(fuzzy_match(words[0],words[1]), True)
+        self.assertEqual(fuzzy_levenshtein(words[0],words[1]), True)
 
     def test_extra_word(self):
         words = ['Эльвира Набиуллина', 'Набиуллина Эльвира Алексеевна']
-        self.assertEqual(fuzzy_match(words[0],words[1]), True)
+        self.assertEqual(fuzzy_levenshtein(words[0],words[1]), True)
 
     def test_lacking_word(self):
         words = ['Эльвира Набиуллина', 'Набиуллина']
-        self.assertEqual(fuzzy_match(words[0],words[1]), True)
+        self.assertEqual(fuzzy_levenshtein(words[0],words[1]), True)
 
 class TextChunkingAndPatritioning(unittest.TestCase):
     def test_compile_huge_strs(self):

@@ -1,3 +1,6 @@
+Requires "python-Levinshtein":
+	Run "pip install python-Levinshtein" to install it.
+	
 Instructions to launch:
 	To use the parser put tomitaparser.exe in news_parser/tomita
 

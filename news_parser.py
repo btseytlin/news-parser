@@ -5,7 +5,7 @@ import json
 import re
 from difflib import SequenceMatcher
 from subprocess import Popen, PIPE, STDOUT, TimeoutExpired
-
+import Levenshtein
 _debug = False
 stderr_set = False
 
@@ -41,48 +41,17 @@ def combinations(n, m):
     import math
     return math.factorial(m)/(math.factorial(n) * (math.factorial(m-n)) )
 
-def fuzzy_match(word1, word2):
+def fuzzy_levenshtein(w1, w2):
     """Check if two strings are mostly(fuzzy) similar ('Эльвира Набиуллина' and 'Набиуллина').
-    
-    Three pairs are created for comparison
-    t0 = [SORTED_STRING_INTERSECTION] (For the above example its 'Набиуллина')
-    t1 = [SORTED_STRING_INTERSECTION] + [SORTED_Difference1] (For the above example its 'Эльвира')
-    t2 = [SORTED_STRING_INTERSECTION] + [SORTED_Difference2] (For the above example its '')
-    All components are sorted alphabetically so that word order doesn't matter.
-    This algorithm makes it so the score is bigger the more common words strings have AND the more similar the other words are.
 
     Args:
-        word1, word2: strings to compare.
+        w1, w2: strings to compare.
     Returns:
         Boolean result of comparison.
     """
-    if SequenceMatcher(None, word1, word2).quick_ratio() < 0.5: #Get a quick calculation and reject absolutely different strings before we get to real lengthy calculations
-        return False
-
-    word1 = set(word1.split())
-    word2 = set(word2.split())
-
-    intersection = word1.intersection(word2)
-    difference1 = list(word1 - intersection)
-    difference2 = list(word2 - intersection)
-    intersection = list(intersection)
-    difference1.sort()
-    difference2.sort()
-    intersection.sort()
-
-    t0 = " ".join(intersection)
-    t1 = " ".join(intersection) +' '+ " ".join(difference1)
-    t2 = " ".join(intersection) +' '+  " ".join(difference2)
-
-    seq_matcher = SequenceMatcher(None, t0, t1)
-    score1 = seq_matcher.ratio()
-    seq_matcher.set_seqs(t0, t2)
-    score2 = seq_matcher.ratio()
-    seq_matcher.set_seqs(t1, t2)
-    score3 = seq_matcher.ratio()
-
+    ratio = Levenshtein.ratio(' '.join(sorted(w1.split())), ' '.join(sorted(w2.split())))
     global partial_match_threshold
-    if max(score1, score2, score3) > partial_match_threshold:
+    if ratio >= partial_match_threshold:
         return True
     return False
 
@@ -167,7 +136,7 @@ def get_overlaps(facts1, facts2):
                     for fact1 in facts2[key]:
                         if fact != fact1:
                             #pdebug("fuzzy matching", fact, fact1)
-                            if fuzzy_match(fact, fact1):
+                            if fuzzy_levenshtein(fact, fact1):
                                 #pdebug('Partial overlap \"%s\" and \"%s\"'%(fact, fact1))
                                 overlaps[key] += 1
 
