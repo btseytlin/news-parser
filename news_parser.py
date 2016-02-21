@@ -250,7 +250,7 @@ def extract_facts(news):
         List of NewsMessage objects.
     """
     texts = [news_line.text for news_line in news]
-    text_per_chunk = min(max(int(len(texts))/20, 30), 250)
+    text_per_chunk = min(max(int(len(texts)/20), 30), 250)
     print("Compiling texts into chunks with %d texts in each"%(text_per_chunk))
     huge_strs = compile_huge_strs(texts, text_per_chunk)
     #Pass huge str to tomita
