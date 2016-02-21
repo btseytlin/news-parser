@@ -275,7 +275,8 @@ def extract_facts(news):
         List of NewsMessage objects.
     """
     texts = [news_line.text for news_line in news]
-    huge_strs = compile_huge_strs(texts, 200)
+    print("Patritioning texts into chunks with %d texts in each"%(min(max(int(len(texts))/20, 50), 150)))
+    huge_strs = compile_huge_strs(texts, int(len(texts)/100))
     #Pass huge str to tomita
     facts = []
     #pdebug("Sending huge str to tomita")
@@ -358,7 +359,7 @@ def main(argv):
             input_fname = arg   
         elif opt in ("-o", "--output"):
             output_fname = arg
-        elif opt in ("-p", "--partial-match-threshold"):
+        elif opt in ("-e", "--enable-partial-matching"):
             global seek_partial_matches
             seek_partial_matches = arg.lower() == "true" or arg == '1'
 
@@ -377,6 +378,8 @@ def main(argv):
     news = extract_facts(news)
     print("Done.")
     print("Seeking overlaps in extracted facts...")
+    if seek_partial_matches:
+        print("Partial matching enabled. It can be slow.")
     comparisons = compare(news)
     print("Done.")
     print("Writing results to output file...")
