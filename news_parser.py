@@ -323,43 +323,30 @@ def extract_facts(news):
     return news 
 
 
-def compare(news):
-    """Compare all news objects, get their overlapping facts.
+def compare_and_output(news, fname):
+    """Compare all news objects, get their overlapping facts. Write results to output file.
 
     Args:
         news: List of NewsMessage objects.
-    Returns:
-        List of Comparison objects.
+        fname: Output filename.
     """
-
-    comparisons = []
     pdebug("Amount of news",str(len(news)))
     pdebug("Amount of comparisons",str(combinations(2, len(news))))
     print("Amount of news",str(len(news)), ", amount of comparisons",str(combinations(2, len(news))))
     percentage = int(len(news)*0.025)
     total_news = len(news)
-    for i in range(total_news):
-        if i % percentage == 0:
-            print("%d/%d"%(i, total_news))
-        for j in range(i+1, total_news):
-            pdebug("Comparing news %d and %d"%(i, j))
-            comparison = Comparison(news[i], news[j])
-            comparison.overlaps = get_overlaps(news[i].grammemes, news[j].grammemes)
-            comparisons.append(comparison)
-    return comparisons
-
-def output(comparisons, fname):
-    """Write results to output file.
-
-    Args:
-        comparisons: List of Comparison objects.
-        fname: Output filename.
-    """
+    comparisons = 0
     with open(fname, 'w', encoding='utf-8') as f:
         f.write("N;ComparedIDs;Name;A;ADV;ADVPRO;ANUM;APRO;COM;CONJ;INTJ;NUM;PART;PR;SPRO;V;S;Duplicate;\n")#Table header
-        for i in range(len(comparisons)):
-            comparison = comparisons[i]
-            f.write("%d;"%(i) + str(comparison))
+        for i in range(total_news):
+            if i % percentage == 0:
+                print("%d/%d"%(i, total_news))
+            for j in range(i+1, total_news):
+                pdebug("Comparing news %d and %d"%(i, j))
+                comparison = Comparison(news[i], news[j])
+                comparison.overlaps = get_overlaps(news[i].grammemes, news[j].grammemes)
+                f.write(''.join(["%d;"%(comparisons), str(comparison)]))
+                comparisons+=1
 
 def main(argv):
     input_fname = "input.csv"
@@ -393,13 +380,10 @@ def main(argv):
     print("Extracting facts from text...")
     news = extract_facts(news)
     print("Done.")
-    print("Seeking overlaps in extracted facts...")
+    print("Seeking overlaps in extracted facts and writing to output file...")
     if seek_partial_matches:
         print("Partial matching enabled. It can be slow.")
-    comparisons = compare(news)
-    print("Done.")
-    print("Writing results to output file...")
-    output(comparisons, output_fname)
+    compare_and_output(news, output_fname)
     print("Done.")
             
 if __name__ == "__main__":
