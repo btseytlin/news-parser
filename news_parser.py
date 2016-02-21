@@ -8,7 +8,13 @@ from subprocess import Popen, PIPE, STDOUT, TimeoutExpired
 
 _debug = False
 stderr_set = False
+
+seek_partial_matches = False
 partial_match_threshold = 0.65
+
+terminator =  ".[[[___]]]"
+terminator_for_parsing = "[[[___]]]"
+
 def pdebug(*args):
     """Write debug info to debug.txt if debug mode is on.
 
@@ -38,6 +44,8 @@ def fuzzy_match(word1, word2):
     Returns:
         Boolean result of comparison.
     """
+    if SequenceMatcher(None, word1, word2).quick_ratio() < 0.5: #Get a quick calculation and reject absolutely different strings before we get to real lengthy calculations
+        return False
 
     word1 = set(word1.split())
     word2 = set(word2.split())
@@ -54,22 +62,44 @@ def fuzzy_match(word1, word2):
     t1 = " ".join(intersection) +' '+ " ".join(difference1)
     t2 = " ".join(intersection) +' '+  " ".join(difference2)
 
-    scores = [ 
-        SequenceMatcher(None, t0, t1).ratio(),
-        SequenceMatcher(None, t0, t2).ratio(),
-        SequenceMatcher(None, t1, t2).ratio(),
-    ]
+    seq_matcher = SequenceMatcher(None, t0, t1)
+    score1 = seq_matcher.ratio()
+    seq_matcher.set_seqs(t0, t2)
+    score2 = seq_matcher.ratio()
+    seq_matcher.set_seqs(t1, t2)
+    score3 = seq_matcher.ratio()
 
     global partial_match_threshold
-    if max(scores) > partial_match_threshold:
+    if max(score1, score2, score3) > partial_match_threshold:
         return True
     return False
+
+def compile_huge_strs(texts, huge_str_size=250):
+    """Create a list of concated strings with a total of huge_str_size in each chunk to pass to tomita for processing
+    Args:
+        texts: list of texts to compile into huge strings.
+    Returns:
+        A list of huge strings made of texts separated by a special terminator.
+    """
+    huge_strs=[]
+    cur_pos = 0
+    num = huge_str_size
+    #for num in range(huge_str_size, len(texts), huge_str_size):
+    while cur_pos <= len(texts):
+        huge_strs.append(''.join([text +terminator for text in texts[cur_pos:num] if text]))
+        cur_pos = num
+        num = cur_pos + huge_str_size
+
+    #for text in texts:
+        #huge_str += text + terminator
+    return huge_strs
+
 
 def post_process_tomita_facts(facts):
     """Remove duplicates and lowercase all facts
 
     Args:
-        facts: dictionary of facts.
+        facts: dictionary of of format {'fact_type': [fact1, fact2 ... factn] }
     """
     for key in facts.keys():
         facts[key] = list(set([ x.lower() for x in facts[key] ]))
@@ -93,7 +123,10 @@ def parse_tomita_output(text):
         closing_brace = clearing_text.find("}", opening_brace)
         if not closing_brace:
             break
-        fact_type=re.search('(\w+\s+)(?=\s+\{)', clearing_text[:closing_brace]).group(0).strip()
+        fact_type=re.search('(\w+\s+)(?=\s+\{)', clearing_text[:closing_brace])
+        if not fact_type:
+            continue
+        fact_type = fact_type.group(0).strip()
         fact_body = clearing_text[opening_brace-1:closing_brace+1]
         fact_text = fact_body[fact_body.find('=')+1:-1].strip()
         if not fact_type in facts.keys():
@@ -108,22 +141,22 @@ def get_overlaps(facts1, facts2):
 
     Args:
         facts1, facts2: dictionaries of facts of format {'fact_type':[fact1, fact2 ... factn]}
+    Returns:
+        Dictionary of format {fact_type:overlap_number}
     """
     overlaps = {}
     pdebug("Seeking overlaps between\n %s\n and\n %s:"%(str(facts1), str(facts2)))
     for key in facts1.keys():
         if key in facts2.keys():
             overlaps[key] = len(frozenset(facts1[key]).intersection(facts2[key]))
-
-            pdebug('%d complete overlaps between facts for key \"%s\"'%( overlaps[key], key))
-            pdebug('Complete overlaps:\n %s'%(str(frozenset(facts1[key]).intersection(facts2[key]))))
-            if key == "EntityName":
+            #pdebug('Complete overlaps for key %s:\n %s'%(key, str(frozenset(facts1[key]).intersection(facts2[key]))))
+            if key == "EntityName" and seek_partial_matches:
                 for fact in facts1[key]:
                     for fact1 in facts2[key]:
                         if fact != fact1:
-                            pdebug("fuzzy matching", fact, fact1)
+                            #pdebug("fuzzy matching", fact, fact1)
                             if fuzzy_match(fact, fact1):
-                                pdebug('Partial overlap \"%s\" and \"%s\"'%(fact, fact1))
+                                #pdebug('Partial overlap \"%s\" and \"%s\"'%(fact, fact1))
                                 overlaps[key] += 1
 
     pdebug("Overlaps:\n %s"%(str(overlaps)))
@@ -171,23 +204,29 @@ def preprocess(text):
 
     Args:
         text: String to preprocess.
+    Returns:
+        Processed text.
     """
     text = text.strip("\"\t\n").strip().split('.')
     clear_text = []
     for t in text:
         if not t:
             continue 
-        t = t.strip("\"\t\n").strip()
+        t = t.strip("\"\t\n").replace('\n', '').strip()
         clear_text.append(t)
 
     text = '. '.join(clear_text)
     return text
 
+# CURRENTLY NOT IN USE
 def get_grammemes(text):
-    """Send text to tomita parser, parse output to extract facts.
+    """Send a single news message text to tomita parser, parse output to extract facts.
 
     Args:
         text: String to pass to tomita for parsing
+    Returns:
+        List of facts dictionaries.
+
     """
 
     pdebug("Sending to tomita:\n----\n", text,"\n----")
@@ -210,18 +249,65 @@ def read_input(fname):
 
     Args:
         fname: filename to read
+    Returns:
+        List of NewsMessage objects.
+
     """
     news_objects = []
     with open(fname, "r", encoding="utf-8-sig") as f:
         for line in f:
-            pdebug("Parsing line\n", line,"\n[[[[[==============]]]]]\n")
+            #pdebug("Parsing line\n", line,"\n[[[[[==============]]]]]\n")
             atrib = [x.strip("\"").strip() for x in line.split(';')]
             news_line = NewsMessage(atrib[0], atrib[1], atrib[2], atrib[3],atrib[4], atrib[5])
             news_line.text = preprocess(news_line.text)
-            news_line.grammemes = get_grammemes(news_line.text)
+            #news_line.grammemes = get_grammemes(news_line.text)
             news_objects.append(news_line)
-            pdebug("[[[[[==============]]]]]")
+            #pdebug("[[[[[==============]]]]]")
     return news_objects
+
+def extract_facts(news):
+    """ Compile all texts into chunks of 50..250, send them to tomita for parsing, 
+        put facts into NewsMessage objects. 
+
+    Args:
+        news: list on NewsMessage objects.
+    Returns:
+        List of NewsMessage objects.
+    """
+    texts = [news_line.text for news_line in news]
+    huge_strs = compile_huge_strs(texts, 200)
+    #Pass huge str to tomita
+    facts = []
+    #pdebug("Sending huge str to tomita")
+    for huge_str in huge_strs:
+        try:
+            p = Popen(['tomita/tomitaparser.exe', "tomita/config.proto"], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+            stdout_data, stderr_data = p.communicate(input=bytes(huge_str, 'UTF-8'), timeout=360)
+            stderr_data = stderr_data.decode("utf-8").strip()
+            pdebug("Tomita returned stderr:\n", stderr_data+"\n" )
+        except TimeoutExpired:
+            p.kill()
+            pdebug("Tomita killed due to timeout")
+        stdout_data = stdout_data.decode("utf-8")
+        huge_list = stdout_data.split(terminator_for_parsing)
+
+        for text in huge_list:
+            if text:
+                facts.append(parse_tomita_output(text))
+
+    try:
+
+        for i in range(len(texts)):
+            pdebug("For text:\n%s\nReceived facts are:\n%s"%(texts[i], str(facts[i])))
+            news[i].grammemes = facts[i]
+    except:
+        print(i)
+        print(len(texts))
+        print(len(facts))
+    #launch tomita
+    #read tomita output from stdout
+    return news 
+
 
 def compare(news):
     """Compare all news objects, get their overlapping facts.
@@ -234,7 +320,10 @@ def compare(news):
 
     comparisons = []
     pdebug("Amount of news",str(len(news)))
+    percentage = int(len(news)*0.025)
     for i in range(len(news)):
+        if i % percentage == 0:
+            print("%d/%d"%(i, len(news)))
         for j in range(i+1, len(news)):
             pdebug("Comparing news %d and %d"%(i, j))
             comparison = Comparison(news[i], news[j])
@@ -259,9 +348,9 @@ def main(argv):
     input_fname = "input.csv"
     output_fname = "output.csv"
     try:                                
-        opts, args = getopt.getopt(argv, "di:o:p:", ["input=", "output=", "partial-match-threshold="])
+        opts, args = getopt.getopt(argv, "di:o:e:p:", ["input=", "output=", "enable-partial-matching=","partial-match-threshold="])
     except getopt.GetoptError:
-        print('news_parser.py [-i <input_file>] [-o <output_file>] [-p <float>]')
+        print('news_parser.py [-i <input_file>] [-o <output_file>] [-e <bool>] [-p <float>]')
         sys.exit(2)   
 
     for opt, arg in opts:                                           
@@ -270,6 +359,10 @@ def main(argv):
         elif opt in ("-o", "--output"):
             output_fname = arg
         elif opt in ("-p", "--partial-match-threshold"):
+            global seek_partial_matches
+            seek_partial_matches = arg.lower() == "true" or arg == '1'
+
+        elif opt in ("-p", "--partial-match-threshold"):
             global partial_match_threshold
             partial_match_threshold = max(0.5, min(float(arg), 1))
         elif opt == '-d':
@@ -277,11 +370,18 @@ def main(argv):
             _debug = True
     
     pdebug("Input file, output file:", input_fname, output_fname)
-
+    print("Reading input file...")
     news = read_input(input_fname)
+    print("Done.")
+    print("Extracting facts from text...")
+    news = extract_facts(news)
+    print("Done.")
+    print("Seeking overlaps in extracted facts...")
     comparisons = compare(news)
+    print("Done.")
+    print("Writing results to output file...")
     output(comparisons, output_fname)
-    
+    print("Done.")
             
 if __name__ == "__main__":
     main(sys.argv[1:])

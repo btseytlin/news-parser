@@ -2,7 +2,6 @@ encoding "utf8";
 
 TTextMinerConfig {
   Dictionary = "tomita/dict.gzt";
-  PrettyOutput = "pretty.html"
 
   Articles = [
   	{ Name = "названия_стран" },
@@ -18,9 +17,6 @@ TTextMinerConfig {
   Output = {
   	Format = text;
   }
-
-  PrintRules="rules.txt";
-  PrintTree="tree.txt";
 
   Facts = [
 	 { Name = "EntityName" },
