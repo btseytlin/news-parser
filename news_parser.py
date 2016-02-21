@@ -126,6 +126,7 @@ def parse_tomita_output(text):
     Returns:
         Dictionary of format {'fact_type': [fact1, fact2 ... factn] }
     """
+    pdebug("parsing text\n", text)
     facts = {}
     clearing_text = str(text)
     while clearing_text.find("{") != -1:
@@ -287,10 +288,12 @@ def extract_facts(news):
         List of NewsMessage objects.
     """
     texts = [news_line.text for news_line in news]
-    print("Compiling texts into chunks with %d texts in each"%(min(max(int(len(texts))/20, 50), 150)))
-    huge_strs = compile_huge_strs(texts, min(max(int(len(texts))/20, 50), 150))
+    text_per_chunk = min(max(int(len(texts))/20, 30), 250)
+    print("Compiling texts into chunks with %d texts in each"%(text_per_chunk))
+    huge_strs = compile_huge_strs(texts, text_per_chunk)
     #Pass huge str to tomita
     facts = []
+    tomita_output_chunks = []
     #pdebug("Sending huge str to tomita")
     total_huge_strs = len(huge_strs)
     for i in range(total_huge_strs):
@@ -298,21 +301,35 @@ def extract_facts(news):
         print("Processing chunk %d/%d"%(i, total_huge_strs) )
         try:
             p = Popen(['tomita/tomitaparser.exe', "tomita/config.proto"], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-            stdout_data, stderr_data = p.communicate(input=bytes(huge_str, 'UTF-8'), timeout=360)
+            stdout_data, stderr_data = p.communicate(input=bytes(huge_str, 'UTF-8'), timeout=600)
             stderr_data = stderr_data.decode("utf-8").strip()
+            print("Tomita returned:", stderr_data.replace("\n", ''))
             pdebug("Tomita returned stderr:\n", stderr_data+"\n" )
         except TimeoutExpired:
             p.kill()
             pdebug("Tomita killed due to timeout")
-        stdout_data = stdout_data.decode("utf-8")
-        huge_list = stdout_data.split(terminator_for_parsing)
+            print("Tomita killed due to timeout")
+        stdout_data = stdout_data.decode("utf-8").strip()
+        tomita_output_chunks.append(stdout_data)
 
-        for text in huge_list:
-            if text:
-                facts.append(parse_tomita_output(text))
+    #Now that we have a list of processed huge chunks we have to:
+    #1. Break each chunk into separate texts (e.g. ["a[[[___]]]b[[[___]]]c"] to [ ["a", "b", "c"] ])
+    lists_of_texts = [stdout_data.split(terminator_for_parsing) for stdout_data in tomita_output_chunks]
+    #2. Unpack all lists of texts into one list (e.g. [ ["a", "b", "c"] ] to ["a", "b", "c"])
+    huge_list = [ ] #Each i-th text in 'huge_list' is a processed i-th text in 'texts' (and a processed text of i-th news message)
+    for l in lists_of_texts:
+        for text in l:
+            huge_list.append(text)
+
+    #pdebug("Hugelist sample, first text:\n", '\n'.join(huge_list[1]))
+    pdebug("Total chunks %d, resulting chunks %d"%(total_huge_strs, len(huge_list)) )
+    for i in range(len(huge_list)):
+        print("Parsing tomita output %d/%d"%(i, len(huge_list)) )
+        text = huge_list[i]
+        if text:
+            facts.append(parse_tomita_output(text))
 
     try:
-
         for i in range(len(texts)):
             pdebug("For text:\n%s\nReceived facts are:\n%s"%(texts[i], str(facts[i])))
             news[i].grammemes = facts[i]
