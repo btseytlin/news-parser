@@ -12,7 +12,7 @@ stderr_set = False
 seek_partial_matches = False
 partial_match_threshold = 0.65
 
-terminator =  "[[[___]]]"
+terminator =  ".[[[___]]]"
 terminator_for_parsing = "[[[___]]]"
 
 def pdebug(*args):
@@ -274,7 +274,7 @@ def extract_facts(news):
 
     #pdebug("Hugelist sample, first text:\n", '\n'.join(huge_list[1]))
     pdebug("Total chunks %d, decompiled texts %d"%(total_huge_strs, len(huge_list)) )
-    percentage = int(len(huge_list)*0.1)
+    percentage = max(int(len(huge_list)*0.1), 1)
     for i in range(len(huge_list)):
         if i % percentage == 0:
             print("Parsing tomita output %d/%d"%(i, len(huge_list)) )
@@ -302,7 +302,7 @@ def compare_and_output(news, fname):
     pdebug("Amount of news",str(len(news)))
     pdebug("Amount of comparisons",str(combinations(2, len(news))))
     print("Amount of news",str(len(news)), ", amount of comparisons",str(combinations(2, len(news))))
-    percentage = int(len(news)*0.025)
+    percentage = max(int(len(news)*0.025), 1)
     total_news = len(news)
     comparisons = 0
     with open(fname, 'w', encoding='utf-8') as f:

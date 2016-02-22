@@ -42,7 +42,7 @@ class TestFuzzyMatch(unittest.TestCase):
 
 class TextChunkingAndPatritioning(unittest.TestCase):
     def test_compile_huge_strs(self):
-        terminator =  "[[[___]]]"
+        terminator =  ".[[[___]]]"
         terminator_for_parsing = "[[[___]]]"
         texts = [
         "7 февраля Дом-музей А. Л. Чижевского",
