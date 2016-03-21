@@ -15,7 +15,6 @@ TTextMinerConfig {
   ]
   
 
-  PrintRules="rules.txt"; 
   Output = {
   	Format = text;
   }

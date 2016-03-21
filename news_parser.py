@@ -12,7 +12,7 @@ stderr_set = False
 seek_partial_matches = False
 partial_match_threshold = 0.65
 
-terminator =  ".[[[___]]]"
+terminator =  "..[[[___]]]"
 terminator_for_parsing = "[[[___]]]"
 
 def pdebug(*args):
@@ -67,13 +67,26 @@ def compile_huge_strs(texts, huge_str_size=250):
     num = huge_str_size
     #for num in range(huge_str_size, len(texts), huge_str_size):
     while cur_pos <= len(texts):
-        huge_strs.append(terminator.join([text for text in texts[cur_pos:num]]))
+        huge_strs.append(''.join([text+terminator for text in texts[cur_pos:num]]))
         cur_pos = num
         num = cur_pos + huge_str_size
 
     #for text in texts:
         #huge_str += text + terminator
     return huge_strs
+
+def decompile_huge_strs(tomita_output_chunks):
+    #Now that we have a list of processed huge chunks we have to:
+    #1. Break each chunk into separate texts (e.g. ["a[[[___]]]b[[[___]]]c"] to [ ["a", "b", "c"] ])
+    lists_of_texts = [stdout_data.split(terminator_for_parsing) for stdout_data in tomita_output_chunks]
+    #2. Unpack all lists of texts into one list (e.g. [ ["a", "b", "c"] ] to ["a", "b", "c"])
+    huge_list = [ ] #Each i-th text in 'huge_list' is a processed i-th text in 'texts' (and a processed text of i-th news message)
+
+    for l in lists_of_texts:
+        for text in l:
+            if text != '':
+                huge_list.append(text)
+    return huge_list
 
 
 def post_process_tomita_facts(facts):
@@ -97,7 +110,17 @@ def parse_tomita_output(text):
     """
     facts = {}
     clearing_text = str(text)
+    max_iters = 50
+    iteration = 0
     while clearing_text.find("{") != -1:
+        iteration += 1
+        if iteration >= max_iters:
+            pdebug("[ERROR]COULDNT PARSE TOMITA OUTOUT:")
+            pdebug(text)
+            pdebug("/[ERROR]")
+            print("Couldnt parse text")
+            break
+
         opening_brace = clearing_text.find("{")
         if not opening_brace:
             break
@@ -114,6 +137,7 @@ def parse_tomita_output(text):
             facts[fact_type] = []
         facts[fact_type].append(fact_text)
         clearing_text = clearing_text.replace(fact_body, '')
+        
     return post_process_tomita_facts(facts)
 
 
@@ -126,7 +150,7 @@ def get_overlaps(facts1, facts2):
         Dictionary of format {fact_type:overlap_number}
     """
     overlaps = {}
-    pdebug("Seeking overlaps between\n %s\n and\n %s:"%(str(facts1), str(facts2)))
+    #pdebug("Seeking overlaps between\n %s\n and\n %s:"%(str(facts1), str(facts2)))
     for key in facts1.keys():
         if key in facts2.keys():
             overlaps[key] = len(frozenset(facts1[key]).intersection(facts2[key]))
@@ -140,7 +164,7 @@ def get_overlaps(facts1, facts2):
                                 #pdebug('Partial overlap \"%s\" and \"%s\"'%(fact, fact1))
                                 overlaps[key] += 1
 
-    pdebug("Overlaps:\n %s"%(str(overlaps)))
+    #pdebug("Overlaps:\n %s"%(str(overlaps)))
     return overlaps
 
 class Comparison():
@@ -190,6 +214,7 @@ def preprocess(text):
     """
 
     text = text.strip("\n \"\t").lstrip(".")
+    text = re.sub(r'[{}\]\[;]', '', text)
 
     return text
 
@@ -206,24 +231,16 @@ def read_input(fname):
     with open(fname, "r", encoding="utf-8-sig") as f:
         for line in f:
             #pdebug("Parsing line\n", line,"\n[[[[[==============]]]]]\n")
-            atrib = [x.strip("\"").strip() for x in line.split(';')]
+            atrib = [x.strip("\"").strip() for x in line.split('";"')]
             news_line = NewsMessage(atrib[0], atrib[1], atrib[2], atrib[3],atrib[4], atrib[5])
-            news_line.text = preprocess(news_line.text)
+            news_line.text = preprocess(news_line.title + '. ' + news_line.text)
             #news_line.grammemes = get_grammemes(news_line.text)
             news_objects.append(news_line)
             #pdebug("[[[[[==============]]]]]")
     return news_objects
 
-def decompile_huge_strs(tomita_output_chunks):
-    #Now that we have a list of processed huge chunks we have to:
-    #1. Break each chunk into separate texts (e.g. ["a[[[___]]]b[[[___]]]c"] to [ ["a", "b", "c"] ])
-    lists_of_texts = [stdout_data.split(terminator_for_parsing) for stdout_data in tomita_output_chunks]
-    #2. Unpack all lists of texts into one list (e.g. [ ["a", "b", "c"] ] to ["a", "b", "c"])
-    huge_list = [ ] #Each i-th text in 'huge_list' is a processed i-th text in 'texts' (and a processed text of i-th news message)
-    for l in lists_of_texts:
-        for text in l:
-                huge_list.append(text)
-    return huge_list
+
+
 
 def tomita_parse(text):
     try:
@@ -231,7 +248,7 @@ def tomita_parse(text):
         stdout_data, stderr_data = p.communicate(input=bytes(text, 'UTF-8'), timeout=300)
         stderr_data = stderr_data.decode("utf-8").strip()
         stdout_data = stdout_data.decode("utf-8").strip()
-        print("Tomita returned:", stderr_data.replace("\n", ''))
+        #print("Tomita returned:", stderr_data.replace("\n", ''))
         pdebug("Tomita returned stderr:\n", stderr_data+"\n" )
     except TimeoutExpired:
         p.kill()
@@ -250,7 +267,7 @@ def extract_facts(news):
         List of NewsMessage objects.
     """
     texts = [news_line.text for news_line in news]
-    text_per_chunk = min(max(int(len(texts)/20), 30), 250)
+    text_per_chunk = min(max(int(len(texts)/20), 30), 150)
     print("Compiling texts into chunks with %d texts in each"%(text_per_chunk))
     huge_strs = compile_huge_strs(texts, text_per_chunk)
     #Pass huge str to tomita
@@ -266,6 +283,8 @@ def extract_facts(news):
         if i==0:
             pdebug("First huge chunk:\n/////HUGE CHUNK/////\n %s \n/////HUGE CHUNK/////\n"%(huge_str))
             pdebug("First huge chunk parsed:\n/////HUGE CHUNK PARSED/////\n %s \n/////HUGE CHUNK PARSED/////\n"%(stdout_data))
+        #pdebug("HUGESTR\n")
+        #pdebug(huge_str)
 
         tomita_output_chunks.append(stdout_data)
 
@@ -311,9 +330,14 @@ def compare_and_output(news, fname):
             if i % percentage == 0:
                 print("%d/%d"%(i, total_news))
             for j in range(i+1, total_news):
-                pdebug("Comparing news %d and %d"%(i, j))
+                #pdebug("Comparing news %d and %d"%(i, j))
                 comparison = Comparison(news[i], news[j])
-                comparison.overlaps = get_overlaps(news[i].grammemes, news[j].grammemes)
+                try:
+                    comparison.overlaps = get_overlaps(news[i].grammemes, news[j].grammemes)
+                except:
+                    pdebug("Error comparing")
+                    pdebug("%d:\n %s"%(i, news[i].text) )
+                    pdebug("%d:\n %s"%(j, news[j].text) )
                 f.write(''.join(["%d;"%(comparisons), str(comparison)]))
                 comparisons+=1
 

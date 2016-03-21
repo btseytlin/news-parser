@@ -42,7 +42,7 @@ class TestFuzzyMatch(unittest.TestCase):
 
 class TextChunkingAndPatritioning(unittest.TestCase):
     def test_compile_huge_strs(self):
-        terminator =  ".[[[___]]]"
+        terminator =  "..[[[___]]]"
         terminator_for_parsing = "[[[___]]]"
         texts = [
         "7 февраля Дом-музей А. Л. Чижевского",
@@ -50,24 +50,21 @@ class TextChunkingAndPatritioning(unittest.TestCase):
         "И вот сейчас при поддержке Г. Г. Фоминой"
         ]
         huge_strs = compile_huge_strs(texts, 2)
-
-        should_be = ["7 февраля Дом-музей А. Л. Чижевского"+terminator+"169,90руб -6%  11% Четвертина", "И вот сейчас при поддержке Г. Г. Фоминой"]
+        #print(huge_strs)
+        should_be = ["7 февраля Дом-музей А. Л. Чижевского"+terminator+"169,90руб -6%  11% Четвертина"+terminator, "И вот сейчас при поддержке Г. Г. Фоминой"+terminator]
         #print(huge_strs)
         self.assertEqual(huge_strs, should_be)
 
     def test_decompile_huge_strs(self):
-        terminator =  "[[[___]]]"
+        terminator =  "..[[[___]]]"
         terminator_for_parsing = "[[[___]]]"
-        output_chunks = [
-            "7 февраля Дом-музей А. Л. Чижевского"+terminator+"169,90руб -6%  11% Четвертина",
-            "И вот сейчас при поддержке Г. Г. Фоминой"
-        ]
+        output_chunks = ["7 февраля Дом-музей А. Л. Чижевского"+terminator+"169,90руб -6%  11% Четвертина"+terminator, "И вот сейчас при поддержке Г. Г. Фоминой"+terminator]
         source_texts = decompile_huge_strs(output_chunks)
-
+        #print(source_texts)
         should_be =  [
-            "7 февраля Дом-музей А. Л. Чижевского",
-            "169,90руб -6%  11% Четвертина",
-            "И вот сейчас при поддержке Г. Г. Фоминой"
+            "7 февраля Дом-музей А. Л. Чижевского..",
+            "169,90руб -6%  11% Четвертина..",
+            "И вот сейчас при поддержке Г. Г. Фоминой.."
         ]
         self.assertEqual(source_texts, should_be)
 
